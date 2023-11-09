@@ -9,8 +9,7 @@ struct coordinates{
 
 struct player{
 	int fish;
-	struct coordinates penguin[N];
-	int penguin_number = 0;
+	struct coordinates penguin[N]; //consider changing to a vector
 };
 
 
