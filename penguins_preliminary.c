@@ -49,19 +49,19 @@ int main(){
 	
 	//SETUP PHASE
 	
-	//insert board measurements, number of players and penguins
+	//insert board measurements, number of players and penguins per player
 	
 	//check if user input is valid
 	
 	do{
 		create_board(n, m);
-	}while(number_of_players * number_of_penguins <= /*a function counting the ones on the board*/);
+	}while(number_of_players * penguins_per_player <= /*a function counting the ones on the board*/);
 	
 	//place the penguins
 	
 	struct player current_player[number_of_players];
 	
-	for(int i = 0; i < number_of_penguins; i++){
+	for(int i = 0; i < penguins_per_player; i++){
 		for(int j = 0; j < number_of_players; j++){
 			place_penguin(&current_player[j].penguin[i]);
 		}
