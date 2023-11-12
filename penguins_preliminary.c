@@ -119,7 +119,7 @@ int main(){
 	
 	do{
 		create_board(n, m);
-	}while(is_board_valid(n, m, number_of_players, penguins_per_player) == 0);
+	}while(is_board_good(n, m, number_of_players, penguins_per_player) == 0);
 	
 
 	//place the penguins
