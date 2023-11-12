@@ -17,6 +17,32 @@ struct player{
 
 // player[1].penguin[0].x
 
+
+void put_in_data(int *n, int *m, int *pla, int *pen){
+
+
+	printf("Insert the number of columns and rows in your board\n");
+	scanf("%d %d", n, m);
+
+	printf("\nInsert the number of players\n");
+	scanf("%d", pla);
+
+	printf("\nInsert the number of penguins per player\n");
+	scanf("%d", pen);
+}
+
+int is_data_valid(int* n, int* m, int* pla, int* pen){
+
+    if(*n * *m <= *pla * *pen){
+		printf("\nThe board is too small to play a game with this many players and penguins per player.\n");
+		printf("Run the game once more, choosing different starting data.\n\n");
+
+		return 0;
+	}
+
+	else return 1;
+}
+
 void create_board(int n, int m){
 	srand(time(0));
     int num;
@@ -33,6 +59,21 @@ void create_board(int n, int m){
 	//fills in board randomly with:
 	//0 - sea / eliminated ice floe
 	// 1, 2, 3 - ice floe with fish on it
+}
+
+int ones_on_board(int n, int m){
+    
+    int ones = 0;
+    
+    //counts the floes with value 1 on the board
+    
+    return ones;
+}
+
+int is_board_good(int n, int m, int num, int pen){
+    
+    if(num * pen <= ones_on_board(n, m)) return 1;
+    else return 0;
 }
 
 void place_penguin(){
@@ -62,14 +103,25 @@ int main(){
 	
 	//SETUP PHASE
 	
+
 	//insert board measurements, number of players and penguins per player
+
+	int n, m, number_of_players, penguins_per_player;
+	put_in_data(&n, &m, &number_of_players, &penguins_per_player);
+
+
+	//check if user input is valid - if it is not, break the game
+
+	if(is_data_valid(&n, &m, &number_of_players, &penguins_per_player) == 0) return 0;
 	
-	//check if user input is valid
+
+	//create the board
 	
 	do{
 		create_board(n, m);
-	}while(number_of_players * penguins_per_player <= /*a function counting the ones on the board*/);
+	}while(is_board_valid(n, m, number_of_players, penguins_per_player) == 0);
 	
+
 	//place the penguins
 	
 	struct player current_player[number_of_players];
