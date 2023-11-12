@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 const int N = 1000000;
 int board[N][N];
 
@@ -16,9 +18,20 @@ struct player{
 // player[1].penguin[0].x
 
 void create_board(int n, int m){
+	srand(time(0));
+    int num;
+    //int board[n][m];
+    for(int j=0; j<n; j++){
+        //printf("\n");
+        for (int i=0; i<m; i++) {
+            num = rand() % 4 ;
+            board[j][i]=num;
+            //printf("%d ", board[j][i]);
+        }
+    }
 	//creates board with dimensions n, m
 	//fills in board randomly with:
-	//-1 - sea / eliminated ice floe
+	//0 - sea / eliminated ice floe
 	// 1, 2, 3 - ice floe with fish on it
 }
 
