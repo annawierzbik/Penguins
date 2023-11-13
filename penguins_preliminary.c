@@ -192,12 +192,15 @@ int main(){
 	//place the penguins
 	
 	struct player current_player[number_of_players];
-	
-	for(int i = 0; i < penguins_per_player; i++){
-		for(int j = 0; j < number_of_players; j++){
-			place_penguin(&current_player[j].penguin[i]);
-		}
-	}
+  int x, y;
+  for (int i = 0; i < penguins_per_player; i++) {
+    for (int j = 0; j < number_of_players; j++) {
+      do {
+        put_in_coordinates(&current_player[j].penguin[i]);
+      } while (are_coordinates_good(current_player[j].penguin[i], n, m) == 0);
+      place_penguin(&current_player[j].penguin[i]);
+    }
+  }
 	
 		
 	
