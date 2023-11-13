@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 const int N = 1000000;
-int board[N][N];
+int *board[N][N];
 
 struct coordinates{
 	int x;
@@ -62,11 +62,16 @@ void create_board(int n, int m){
 }
 
 int ones_on_board(int n, int m){
-    
+
     int ones = 0;
-    
-    //counts the floes with value 1 on the board
-    
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+
+            if(board[i][j] == 1) ones++;
+        }
+    }
+
     return ones;
 }
 
@@ -74,6 +79,36 @@ int is_board_good(int n, int m, int num, int pen){
     
     if(num * pen <= ones_on_board(n, m)) return 1;
     else return 0;
+}
+
+void display_board_to_file(int n, int m){		//either to file or to console
+
+    FILE *boardfile = fopen("boardfile.txt", "w");
+
+    for(int j = 0; j < m; j++){
+
+        for(int i = 0; i < n; i++){
+
+            fprintf(boardfile, "%d ", board[i][j]);
+        }
+
+        fprintf(boardfile, "\n");
+    }
+
+    fclose(boardfile);
+}
+
+void display_board_to_console(int n, int m){
+
+    for(int j = 0; j < m; j++){
+
+        for(int i = 0; i < n; i++){
+
+            printf("%d ", board[i][j]);
+        }
+
+        printf("\n");
+    }
 }
 
 void place_penguin(){
