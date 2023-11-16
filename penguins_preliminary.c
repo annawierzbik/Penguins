@@ -40,6 +40,8 @@ int is_data_valid(int* n, int* m, int* pla, int* pen){
 		return 0;
 	}
 
+  if(*n<=0||*m<=0||*pla<=0||*pen<=0) return 0;
+
 	else return 1;
 }
 
