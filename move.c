@@ -3,48 +3,48 @@
 
 void makeMove(struct Board *board, int *ROW , int *COLUMN) {
     char direction;
-    printf("Ingrese la dirección del movimiento (u/d/l/r): ");
+    printf("Introduce where do you wanna move the oenguin (u/d/l/r): ");
     scanf(" %c", &direction);
 
-    int nuevaFila = *ROW;
-    int nuevaColumna = *COLUMN;
+    int newrow = *ROW;
+    int newcolumn = *COLUMN;
 
-    // Actualizar la posición de la ficha según la dirección ingresada
+    // changing the position of the fish 
     switch (direction) {
         case 'u':
-            if (nuevaFila > 0) {
-                nuevaFila--;
+            if (newrow > 0) {
+                newrow--;
             }
             break;
         case 'd':
-            if (nuevaFila < 99) {
-                nuevaFila++;
+            if (newrow < 99) {
+                newrow++;
             }
             break;
         case 'l':
-            if (nuevaColumna > 0) {
-                nuevaColumna--;
+            if (newcolumn > 0) {
+                newcolumn--;
             }
             break;
         case 'r':
-            if (nuevaColumna < 99) {
-                nuevaColumna++;
+            if (newcolumn < 99) {
+                newcolumn++;
             }
             break;
         default:
-            printf("Dirección no válida. Intente de nuevo.\n");
-            return; // Salir de la función en caso de dirección no válida
+            printf("not valid direction. Try again.\n");
+            return;
     }
 
-    // Verificar si la nueva posición está ocupada
+    // Check is the new position is available
     if (    board->cells[nuevaFila][nuevaColumna] == ' ') {
-        // La nueva posición está libre, realizar el movimiento
+        // if it is free, change to the new position
         board->cells[*ROW][*COLUMN] = ' ';
-        board->cells[nuevaFila][nuevaColumna] = 'X'; // Suponiendo que la ficha es 'X'
+        board->cells[nuevaFila][nuevaColumna] = 'X'; // Suposing that the  fish 'X'. this how i have tested, it should change to the player.
         *ROW = nuevaFila;
         *COLUMN = nuevaColumna;
     } else {
-        printf("La posición está ocupada. Intente de nuevo.\n");
+        printf("The place is not available. Try again.\n");
     }
 }
 // this function is only for the movement of the penguin, it should be used after we have checked that the penguin can move. in case there is no posible movement it will tell you. to indicate where do you wanna place the penguins i have thought of indicating it using u(UP), d (down), l(LEFT), r(RIGHT).
