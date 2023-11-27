@@ -1,8 +1,11 @@
 #include "structures.h"
 
+#ifndef _BOARDF_
+
 void initialize_board(int, int, int [][N]);
 void create_board(int, int, int [][N]);
 int ones_on_board(int, int, int [][N]);
 int is_board_good(int, int, int, int, int [][N]);
 void display_board(int, int, int [][N]);
 
+#endif //_BOARDF_
