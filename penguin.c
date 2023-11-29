@@ -4,7 +4,8 @@
 struct coordinates put_in_coordinates(){
     // we dont need struct coordinates *penguin as argument, the function can take no arguments as it is now
     // if we want to, it can directly modify the coordinates using that pointer and then it will not return anything
-
+    
+    //I didn't want to change the coordinates immediately through pointers, bc I wanted to check them first and only after that assign new values to penguins
     int x, y;
     printf("Choose where you want to place your penguin. Please enter the coordinates:\n");
     printf("x: ");
