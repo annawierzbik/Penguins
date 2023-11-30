@@ -3,11 +3,6 @@
 #include <time.h>
 #include "board.h"
 
-/*
-Create board NEEDS to be changed so that first it generates the coordinates for ones,
-and enough of them to place all the penguins of each player. Only then it fills the remaining fields
-with 0/1/2/3. Then, the functions ones_on_board and is_board_good will not be needed.
-*/
 
 void initialize_board(int n, int m, int board[][N]){
 
@@ -18,42 +13,29 @@ void initialize_board(int n, int m, int board[][N]){
     }
 }
 
-void create_board(int n, int m, int board[][N]){
+void create_board(int n, int m, int pla, int pen, int board[][N]){
+
 	srand(time(0));
-    int num;
-    //int board[n][m];
-    for(int j=0; j<n; j++){
-        //printf("\n");
-        for (int i=0; i<m; i++) {
-            num = rand() % 4 ;
-            board[j][i]=num;
-            //printf("%d ", board[j][i]);
-        }
-    }
-	//creates board with dimensions n, m
-	//fills in board randomly with:
-	//0 - sea / eliminated ice floe
-	// 1, 2, 3 - ice floe with fish on it
-}
 
-int ones_on_board(int n, int m, int board[][N]){
+    int num, ones = pla * pen;
 
-    int ones = 0;
+    for(int k = 0; k < ones; k++){
 
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
+        int i = rand() % n;
+        int j = rand() % m;
 
-            if(board[i][j] == 1) ones++;
-        }
+        board[i][j] = 1;
     }
 
-    return ones;
-}
+    for(int j = 0; j < n; j++){
+        for (int i = 0; i < m; i++) {
 
-int is_board_good(int n, int m, int num, int pen, int board[][N]){
-
-    if(num * pen <= ones_on_board(n, m, board)) return 1;
-    else return 0;
+            if(board[j][i] != 1){
+                num = rand() % 4 ;
+                board[j][i] = num;
+            }
+        }
+    }
 }
 
 void display_board(int n, int m, int board[][N]){
@@ -72,7 +54,8 @@ void display_board(int n, int m, int board[][N]){
         else printf("%d |", j);
 
         for(int i = 0; i < n; i++){
-            printf("%d ", board[i][j]);
+            if(board[i][j] >= 'A') printf("%c ", board[i][j]);
+            else printf("%d ", board[i][j]);
         }
 
         printf("\n");

@@ -1,63 +1,65 @@
 #include <stdio.h>
 #include "move.h"
+#include "penguin.h"
 
-void makeMove(struct Board *board, int *ROW , int *COLUMN) {
-    char direction;
-    printf("Introduce where do you wanna move the oenguin (u/d/l/r): ");
-    scanf(" %c", &direction);
+int is_available(int n, int m, int x, int y, int board[][N]){
 
-    int newrow = *ROW;
-    int newcolumn = *COLUMN;
+    //is on board nxm?
+    //is not equal 0?
+    //is not other penguin?
 
-    // changing the position of the fish 
-    switch (direction) {
-        case 'u':
-            if (newrow > 0) {
-                newrow--;
-            }
-            break;
-        case 'd':
-            if (newrow < 99) {
-                newrow++;
-            }
-            break;
-        case 'l':
-            if (newcolumn > 0) {
-                newcolumn--;
-            }
-            break;
-        case 'r':
-            if (newcolumn < 99) {
-                newcolumn++;
-            }
-            break;
-        default:
-            printf("not valid direction. Try again.\n");
-            return;
-    }
-
-    // Check is the new position is available
-    if (    board->cells[nuevaFila][nuevaColumna] == ' ') {
-        // if it is free, change to the new position
-        board->cells[*ROW][*COLUMN] = ' ';
-        board->cells[nuevaFila][nuevaColumna] = 'X'; // Suposing that the  fish 'X'. this how i have tested, it should change to the player.
-        *ROW = nuevaFila;
-        *COLUMN = nuevaColumna;
-    } else {
-        printf("The place is not available. Try again.\n");
-    }
+    return 1;//1 if available, 0 if not
 }
-// this function is only for the movement of the penguin, it should be used after we have checked that the penguin can move. in case there is no posible movement it will tell you. to indicate where do you wanna place the penguins i have thought of indicating it using u(UP), d (down), l(LEFT), r(RIGHT).
 
-void move_penguin(){
-	//choose penguin
-	//if penguin cannot move go back to: choose penguin
-	// (possibly) display/highlight all the possible moves for the penguin
-	//choose coordinates
-	//check if coordinates are valid
-	//(if they were anomg the ones displayed earlier)
-	//if not go back to: choose penguin
-	//else change coordinates
-	//collect fish
-	//change value of the current floe to -1
+int can_penguin_move(int n, int m, struct coordinates penguin, int board[][N]){
+
+    return 1;//1 if it can move, 0 if it can't
 }
+
+int can_player_move(int n, int m, int pen, struct player* player, int board[][N]){
+
+    return 1;//1 if any can, 0 if not
+}
+
+int can_any_move(int n, int m, int pla, int pen, struct player players[], int board[][N]){
+
+    return 1;//1 if any can, 0 if not
+}
+
+int which_penguin(int x, int y, int pen, struct player* player){
+
+    return 0;
+}
+
+int choose_penguin(int pen, struct player* player){
+
+    struct coordinates newc; // new coordinates
+    int penguin_id;
+
+    do{
+        newc = insert_coordinates(1);
+    } while(which_penguin(newc.x, newc.y, pen, player) == -1);
+
+    penguin_id = which_penguin(newc.x, newc.y, pen, player);
+    return penguin_id;
+}
+
+int is_grid_line(int x, int y, int new_x, int new_y){
+    return 1;//1 if true, 0 if not
+}
+int check_move(int x, int y, int new_x, int new_y, int board [][N]){
+    return 1;//1 if no empty/occupied floes, 0 if there are
+}
+
+int can_move_there(int n, int m, int new_x, int new_y, struct coordinates penguin, int board[][N]){
+
+    //is_on_board?
+    //is_grid_line?
+    //check_move
+    return 1;//1 if the move is valid, 0 if it isn't
+}
+
+
+
+
+

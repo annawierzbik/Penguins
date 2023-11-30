@@ -1,7 +1,28 @@
 #include "structures.h"
 
-struct coordinates put_in_coordinates();
-int is_on_board(int, int, int, int);
-int are_coordinates_good(struct coordinates, int, int, int [][N]);
-void initialize_fish(struct player [], int);
-void collect_fish(struct player*, int, int [][N]);
+#ifndef _PENGF_
+
+//Function asking the user for the coordinates where he wants to place his penguin
+//type determines the message printed in the console
+//function returns them as a struct coordinates (input)
+struct coordinates insert_coordinates(int type);
+
+//function that takes x and y coordinates, as well as the dimensions of the board n, m
+//then it checks if  x, y are within the board
+//returns either 1 or 0 (used in are_coordinates_good())
+int is_on_board(int x, int y, int n, int m);
+
+//function that takes struct coordinates (user input returned by put_in_coordinates())
+// as well as the n, m dimensions of the board and the board itself
+// this function verifies if the coordinates are correct (ex it calls is_on_board()) and if there is exacty one fish on this floe
+int are_coordinates_good(struct coordinates input, int n, int m, int board[][N]);
+
+//function takes the array storing all players(player[])and number of players (pla)
+//then it initializes the count of the fish collected by each player (player[i].fish) to 0
+void initialize_fish(struct player players[], int pla);
+
+//this function takes the pointer to the struct player, number of his penguin (int i, changing in a loop in main) and the board
+//then it uses the value of board on the coordinates of player' ppenguin to change his score (ex floe value is 2 - two points are added to the score)
+void collect_fish(int player_id, struct player* player, int i, int board[][N]);
+
+#endif // _PENGF_
