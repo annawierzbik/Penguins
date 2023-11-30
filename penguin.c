@@ -23,7 +23,7 @@ struct coordinates put_in_coordinates(){
 }
 
 //function that takes x and y coordinates, as well as the dimensions of the board n, m
-//then it checkes if  x, y are within the board
+//then it check if  x, y are within the board
 //returns either 1 or 0 (used in are_coordinates_good())
 
 int is_on_board(int x, int y, int n, int m){
@@ -57,7 +57,7 @@ int are_coordinates_good(struct coordinates input, int n, int m, int board[][N])
 }
 
 //function takes the array storing all players(player[])and number of players (pla) 
-//then it inicializes the count of the fish collected by each player (player[i].fish) to 0
+//then it initializes the count of the fish collected by each player (player[i].fish) to 0
 void initialize_fish(struct player players[], int pla){
 
     for(int i = 0; i < pla; i++){
