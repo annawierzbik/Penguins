@@ -9,6 +9,7 @@ and enough of them to place all the penguins of each player. Only then it fills 
 with 0/1/2/3. Then, the functions ones_on_board and is_board_good will not be needed.
 */
 
+//the function initialize_board is just to start our board with parameters received from the player
 void initialize_board(int n, int m, int board[][N]){
 
     for(int i=0; i<n; i++){
@@ -18,6 +19,7 @@ void initialize_board(int n, int m, int board[][N]){
     }
 }
 
+//this function creates our board with random numbers from 0 to 3 in order to have the fishes. (0 means there is an iceflow, 1,2 or 3 are the number of penguins there are)
 void create_board(int n, int m, int board[][N]){
 	srand(time(0));
     int num;
@@ -36,6 +38,7 @@ void create_board(int n, int m, int board[][N]){
 	// 1, 2, 3 - ice floe with fish on it
 }
 
+//we count the nomber of ones that exists in our board, to check if it is possible to play the game and place the penguins
 int ones_on_board(int n, int m, int board[][N]){
 
     int ones = 0;
@@ -50,12 +53,14 @@ int ones_on_board(int n, int m, int board[][N]){
     return ones;
 }
 
+//we check with the ones that we received from the previous function, the number of players multiplied by the number of pemguins should be bigger than the number of ones created randomly in the board
 int is_board_good(int n, int m, int num, int pen, int board[][N]){
 
     if(num * pen <= ones_on_board(n, m, board)) return 1;
     else return 0;
 }
 
+// function to display our board
 void display_board(int n, int m, int board[][N]){
 
     printf("\n\n    ");
