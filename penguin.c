@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "penguin.h"
 
+//Function asking the user for the coordinates where he wants to place his penguin
+//function returns them as a struct coordinates 
 struct coordinates put_in_coordinates(){
     // we dont need struct coordinates *penguin as argument, the function can take no arguments as it is now
     // if we want to, it can directly modify the coordinates using that pointer and then it will not return anything
@@ -17,7 +19,9 @@ struct coordinates put_in_coordinates(){
     input.x = x;
     return input;
 }
-
+//function that takes x and y coordinates, as well as the dimensions of the board n, m
+//then it checkes if  x, y are within the board
+//returns either 1 or 0
 int is_on_board(int x, int y, int n, int m){
 
   if (0 <= x && x < n && 0 <= y && y < m)
@@ -26,7 +30,10 @@ int is_on_board(int x, int y, int n, int m){
   else
     return 0;
 }
-
+//function that takes struct coordinates that use the user input 
+// as well as the n, m dimensions of the board and the board itself
+// this function veryfies if the coordinates are correct (ex it calls is_on_board()) and if there is exacty one fish on this floe
+// returns 1 or 0
 int are_coordinates_good(struct coordinates input, int n, int m, int board[][N]){
 
   int x = input.x;
@@ -43,14 +50,16 @@ int are_coordinates_good(struct coordinates input, int n, int m, int board[][N])
    * value is 1
    * if not go back to: insert coordinates of a penguin*/
 }
-
+//function takes the structure player (player[]), number of players (pla) 
+//then it inicializes the count of the fish collected by each playe
 void initialize_fish(struct player players[], int pla){
 
     for(int i = 0; i < pla; i++){
         players[i].fish = 0;
     }
 }
-
+//this function takes the pointer to the struct player, number of his penguin (int i, changing in a loop in main) and the board
+//then it uses the value of board in the coordinates of player to change his score (ex floe value is 2 - two points are added to the score)
 void collect_fish(struct player* player, int i, int board[][N]){
 
     int x = player->penguin[i].x;
