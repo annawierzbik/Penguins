@@ -67,13 +67,13 @@ void play_game(int n, int m, int pla, int pen, struct player players[], int boar
 void evaluate_game(int pla, struct player players[]){
   struct player player_ranking[pla];
   int changes;
-  char order_of_players[pla];
+  char players_letter[pla];
     
   for (int i =0; i<pla; i++) {
     //initialize the ranking of players
     player_ranking[i]= players[i];
     //this array stores the letters associated with players
-    order_of_players[i] = 'A'+i;
+    players_letter[i] = 'A'+i;
     }
     
   do {
@@ -85,9 +85,9 @@ void evaluate_game(int pla, struct player players[]){
           struct player temp = player_ranking[j];
           player_ranking[j] = player_ranking[j+1];
           player_ranking[j+1] = temp;
-          char temp2 = order_of_players[j];
-          order_of_players[j] = order_of_players[j+1];
-          order_of_players[j+1] = temp2;  
+          char temp2 = players_letter[j];
+          players_letter[j] = players_letter[j+1];
+          players_letter[j+1] = temp2;  
         }
     }      
   } while (changes!=0);
@@ -95,7 +95,7 @@ void evaluate_game(int pla, struct player players[]){
   //print the ranking of players and their scores
   printf("\nTHE RANKING OF PLAYERS:\n");
   for(int k = 0; k <pla; k++) {
-      printf("\tPlayer %c --- %d\n",order_of_players[k], player_ranking[k].fish);   
+      printf("\tPlayer %c --- %d\n",players_letter[k], player_ranking[k].fish);   
   }
   
   if(player_ranking[0].fish == player_ranking[1].fish)
@@ -103,5 +103,5 @@ void evaluate_game(int pla, struct player players[]){
   
   
   else if (player_ranking[0].fish > player_ranking[1].fish)
-      printf("Player %c won the game!\n", order_of_players[0]);
+      printf("Player %c won the game!\n", players_letter[0]);
 }
