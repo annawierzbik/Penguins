@@ -60,10 +60,55 @@ void play_game(int n, int m, int pla, int pen, struct player players[], int boar
     }
 }
 
-void evaluate_game(int pla, struct player players[]){
+  //for pla players finds the highest number of fish
+  //players[i].fish - to access the fish of i-th player
+  //if one player has more than the others declares the winner,
+  //else declares a tie
 
-    //for pla players finds the highest number of fish
-    //players[i].fish - to access the fish of i-th player
-    //if one player has more than the others declares the winner,
-    //else declares a tie
+void evaluate_game(int pla, struct player players[]){
+  struct player player_ranking[pla];
+  int changes;
+  char order_of_players[pla];
+    
+  for (int i =0; i<pla; i++) {
+    //inicialise ranking of players
+    player_ranking[i]= players[i];
+    order_of_players[i] = 'A'+i;
+    }
+  
+   
+  
+  do {
+    changes = 0;
+    for(int j = 0; j <pla; j++) {
+         //bubble sort the players by score
+        if(player_ranking[j+1].fish > player_ranking[j].fish) {        
+          changes++;
+          struct player temp = player_ranking[j];
+          player_ranking[j] = player_ranking[j+1];
+          player_ranking[j+1] = temp;
+          char temp2 = order_of_players[j];
+          order_of_players[j] = order_of_players[j+1];
+          order_of_players[j+1] = temp2;  
+
+          printf(">> Debug: order_of_players[%d] after swap = %c\n", j, order_of_players[j]);
+          printf(">> Debug: order_of_players[%d] after swap = %c\n", j + 1, order_of_players[j + 1]);
+        }
+      
+    }      
+    
+  } while (changes!=0);
+  
+  //print the ranking of players and their scores
+  printf("\nTHE RANKING OF PLAYERS:\n");
+  for(int k = 0; k <pla; k++) {
+      printf("\tPlayer %c --- %d\n",order_of_players[k], player_ranking[k].fish);   
+  }
+  
+  if(player_ranking[0].fish == player_ranking[1].fish)
+      printf("Its a draw!\n");
+  
+  
+  else if (player_ranking[0].fish > player_ranking[1].fish)
+      printf("Player %c won the game!\n", order_of_players[0]);
 }
