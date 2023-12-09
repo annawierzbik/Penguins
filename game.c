@@ -52,7 +52,6 @@ void play_game(int n, int m, int pla, int pen, struct player players[], int boar
 
             printf("\nIt's player %c's turn:\n\n", current+'A');
             display_board(n, m, board);
-
             move_penguin(n, m, pen, current, &players[current], board);
         }
 
