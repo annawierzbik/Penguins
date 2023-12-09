@@ -1,7 +1,0 @@
-{
-    "C_Cpp.errorSquiggles": "disabled",
-    "files.associations": {
-        "move.h": "c",
-        "penguin.h": "c"
-    }
-}
