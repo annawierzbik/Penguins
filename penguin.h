@@ -2,6 +2,17 @@
 
 #ifndef _PENGF_
 
+//function takes a line from the console
+void getstring(char str[]);
+
+//function converts a fragment of string str[] to a single coordinate
+//l and r determine the range of ascii codes considered for the coordinate
+//i points to the current index of str[]
+int fragment(char str[], char l, char r, int* i);
+
+//Function converts the coordinates given as a string (str[]) to numeric x and y
+int convert(char str[], int* x, int* y);
+
 //Function asking the user for the coordinates where he wants to place his penguin
 //type determines the message printed in the console
 //function returns them as a struct coordinates (input)

@@ -31,14 +31,14 @@ int which_penguin(int x, int y, int pen, struct player* player){
     //check if any of the players penguins in penuin[] matches the given x, y 
     for(int i =0; i<pen; i++){
 
-        if(x ==player->penguin[i].x && y == player->penguin[i].y) {
+        if(x == player->penguin[i].x && y == player->penguin[i].y) {
             //i the position in the array penguin[], so i={0, 1, ..., pen}
             return i;
         }
     }
 
     //if no penguins match given x, y:
-    printf("\nThese coordinates do not match any of you penguins. Please try again.\n");
+    printf("\nThese coordinates do not match any of your penguins. Please try again.\n");
     return -1;
 }
 

@@ -1,20 +1,66 @@
 #include <stdio.h>
 #include "penguin.h"
 
+void getstring(char str[]){
+
+    int i = -1;
+
+    do{
+        i++;
+        str[i] = getchar();
+    }while(str[i]!='\n' && i < P);
+}
+
+int fragment(char str[], char l, char r, int* i){
+
+    int a = 0, s = 1;
+
+    if(str[*i] == '-'){
+        s = -1;
+        (*i)++;
+    }
+
+    while (str[*i]>=l && str[*i]<=r){
+        a = (r-l+1) * a + str[*i]-l;
+        (*i)++;
+    }
+
+    return a*s;
+}
+
+int convert(char str[], int* x, int* y){
+
+    int a, b, i = 0;
+
+    b = fragment(str, '0', '9', &i);
+    a = fragment(str, 'a', 'z', &i);
+    if(b==0 && str[0]!='0') b = fragment(str, '0', '9', &i);
+
+    if(str[i]!='\n'){
+        printf("These are not proper coordinates. Try again.\n");
+        return 0;
+    }
+
+    else{
+        *x = a;
+        *y = b;
+        return 1;
+    }
+}
+
 struct coordinates insert_coordinates(int type){
 
-    int x, y;
+    struct coordinates input;
+    char str[P];
 
     if(type == 0) printf("Insert the coordinates of the floe you want to place your penguin on:\nx: ");
     if(type == 1) printf("Insert the coordinates of the penguin you want to move:\nx: ");
     if(type == 2) printf("Insert the coordinates of the floe you want to move your penguin to:\nx: ");
 
-    scanf("%d", &x);
-    printf("y: ");
-    scanf("%d", &y);
-    struct coordinates input;
-    input.y = y;
-    input.x = x;
+    do{
+        getstring(str);
+    }while(!convert(str, &input.x, &input.y));
+
     return input;
 }
 
