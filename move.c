@@ -124,11 +124,64 @@ int choose_penguin(int pen, struct player* player){
 }
 
 int is_grid_line(int x, int y, int new_x, int new_y){
-    return 1;//1 if true, 0 if not
+    if(x==new_x || y==new_y){
+        return 1;
+        printf("ok\n");
+    }
+    else{
+        return 0;
+    }
+    //1 if true, 0 if not
 }
 
 int check_move(int x, int y, int new_x, int new_y, int board [][N]){
-    return 1;//1 if no empty/occupied floes, 0 if there are
+     //1 if no empty/occupied floes, 0 if there are
+    if(x==new_x){
+      //  printf("poruszasz sie poziomo");
+        if(new_y>y){
+           // printf("poruszasz sie w prawo");
+            for(int i=y+1; i<=new_y; i++){
+              //  printf("x: %d y: %d\n",x,y);
+                if(board[x][i]!=1 && board[x][i]!=2 && board[x][i]!=3){
+                    return 0;
+                }
+            }
+            return 1;
+        }
+        else{
+           // printf("poruszasz sie w lewo");
+            for(int i=y-1; i>=new_y; i--){
+                //printf("x: %d y: %d\n",x,y);
+                if(board[x][i]!=1 && board[x][i]!=2 && board[x][i]!=3){
+                    return 0;
+                }
+            }
+            return 1;
+        }
+    }
+     if(y==new_y){
+       // printf("poruszasz sie pionowo");
+        if(new_x>x){
+            //printf("poruszasz sie w dol");
+            for(int i=x+1; i<=new_x; i++){
+               // printf("x: %d y: %d\n",x,y);
+                if(board[i][y]!=1 && board[i][y]!=2 && board[i][y]!=3){
+                    return 0;
+                }
+            }
+            return 1;
+        }
+        else{
+          //  printf("poruszasz sie w gore");
+            for(int i=x-1; i>=new_x; i--){
+           //     printf("x: %d y: %d\n",x,y);
+                if(board[i][y]!=1 && board[i][y]!=2 && board[i][y]!=3){
+                    return 0;
+                }
+            }
+            return 1;
+        }
+    }
 }
 
 int can_move_there(int n, int m, int new_x, int new_y, struct coordinates penguin, int board[][N]){
@@ -136,7 +189,12 @@ int can_move_there(int n, int m, int new_x, int new_y, struct coordinates pengui
     //is_on_board?
     //is_grid_line?
     //check_move
-    return 1;//1 if the move is valid, 0 if it isn't
+     if(is_on_board(new_x,new_y,n,m)==1 && is_grid_line(penguin.x,penguin.y,new_x,new_y)==1 && check_move(penguin.x, penguin.y, new_x, new_y, board)==1){
+        return 1;
+    }else{
+        return 0;
+    }
+    //1 if the move is valid, 0 if it isn't
 }
 
 
