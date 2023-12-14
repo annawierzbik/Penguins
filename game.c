@@ -71,7 +71,7 @@ void evaluate_game(int pla, struct player players[]){
   int changes;
   char players_letter[pla];
     
-  for (int i =0; i<pla; i++) {
+  for (int i =0; i<pla-1; i++) {
     //initialize the ranking of players
     player_ranking[i]= players[i];
     //this array stores the letters associated with players
