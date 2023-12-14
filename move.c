@@ -74,8 +74,15 @@ int choose_penguin(int pen, struct player* player){
     int penguin_id;
 
     do{
-        newc = insert_coordinates(1);
-    } while(which_penguin(newc.x, newc.y, pen, player) == -1);
+            if(pen ==1)
+            {
+                return 0;
+            }
+            else
+            {
+            newc = insert_coordinates(1);
+            }
+        } while(which_penguin(newc.x, newc.y, pen, player) == -1);
 
     
     penguin_id = which_penguin(newc.x, newc.y, pen, player);
