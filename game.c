@@ -54,9 +54,11 @@ void play_game(int n, int m, int pla, int pen, struct player players[], int boar
             display_board(n, m, board);
             move_penguin(n, m, pen, current, &players[current], board);
         }
+        else printf("\n\nPlayer %c cannot move anymore.", current + 'A');
 
         current = (current + 1) % pla;
     }
+    printf("\n\n\nNo player can make a move anymore. This is the end of the game.\n");
 }
 
   //for pla players finds the highest number of fish
@@ -64,6 +66,7 @@ void play_game(int n, int m, int pla, int pen, struct player players[], int boar
   //if one player has more than the others declares the winner or else declares a tie
 
 void evaluate_game(int pla, struct player players[]){
+ 
   struct player player_ranking[pla];
   int changes;
   char players_letter[pla];
@@ -75,8 +78,9 @@ void evaluate_game(int pla, struct player players[]){
     players_letter[i] = 'A'+i;
     }
     
-  do {
     //bubble sort the players by score
+
+  do {
     changes = 0;
     for(int j = 0; j <pla; j++) {
           if(player_ranking[j+1].fish > player_ranking[j].fish) {        

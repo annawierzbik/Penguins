@@ -3,7 +3,7 @@
 #ifndef _PENGF_
 
 //function takes a line from the console
-void getstring(char str[]);
+int getstring(char str[]);
 
 //function converts a fragment of string str[] to a single coordinate
 //l and r determine the range of ascii codes considered for the coordinate

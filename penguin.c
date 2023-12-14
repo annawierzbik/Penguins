@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "penguin.h"
 
-void getstring(char str[]){
+int getstring(char str[]){
 
     int i = -1;
 
@@ -9,6 +9,10 @@ void getstring(char str[]){
         i++;
         str[i] = getchar();
     }while(str[i]!='\n' && i < P);
+
+    if(i < 1)   return 0;
+
+    return 1;
 }
 
 int fragment(char str[], char l, char r, int* i){
@@ -30,7 +34,7 @@ int fragment(char str[], char l, char r, int* i){
 
 int convert(char str[], int* x, int* y){
 
-    int a, b, i = 0;
+    int a = 0, b = 0, i = 0;
 
     b = fragment(str, '0', '9', &i);
     a = fragment(str, 'a', 'z', &i);
@@ -52,14 +56,15 @@ struct coordinates insert_coordinates(int type){
 
     struct coordinates input;
     char str[P];
+    int cont;
 
-    if(type == 0) printf("Insert the coordinates of the floe you want to place your penguin on:\nx: ");
-    if(type == 1) printf("Insert the coordinates of the penguin you want to move:\nx: ");
-    if(type == 2) printf("Insert the coordinates of the floe you want to move your penguin to:\nx: ");
+    if(type == 0) printf("Insert the coordinates of the floe you want to place your penguin on:\n");
+    if(type == 1) printf("Insert the coordinates of the penguin you want to move:\n");
+    if(type == 2) printf("Insert the coordinates of the floe you want to move your penguin to:\n");
 
     do{
-        getstring(str);
-    }while(!convert(str, &input.x, &input.y));
+        cont = getstring(str);
+    }while(!convert(str, &input.x, &input.y) || !cont);
 
     return input;
 }
@@ -73,21 +78,23 @@ int is_on_board(int x, int y, int n, int m){
     return 0;
 }
 
+
 int are_coordinates_good(struct coordinates input, int n, int m, int board[][N]){
 
-  int x = input.x;
-  int y = input.y;
+    int x = input.x;
+    int y = input.y;
 
-  if (board[x][y] == 1 && is_on_board(x, y, n, m) == 1)
+    if(!is_on_board(x, y, n, m)){
+        printf("coordinates not on board. Try again\n");
+        return 1;
+    }
+
+    if(board[x][y] != 1){
+        printf("value of the floe is not 1. You can only place penguins on floes with value 1. Try again\n");
+        return 2;
+    }
+
     return 0;
-
-  else
-    return 1;
-  /* Separate function are_coordinates_good() for:
-   * check if valid
-   * coordinates on board
-   * value is 1
-   * if not go back to: insert coordinates of a penguin*/
 }
 
 void initialize_fish(struct player players[], int pla){
