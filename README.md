@@ -10,9 +10,9 @@ First, all the players must place their penguins on the board. A penguin can onl
 
 This project is being made by:
 
-Anna Kopyś
-Hanna Biegacz
-Anna Wierzbik
+Anna Kopyś,
+Hanna Biegacz,
+Anna Wierzbik,
 Javier Terroba Oviedo
 
 
