@@ -70,7 +70,21 @@ int placement(int penguins, struct player* my_player, int board[N][N]){
     //return 0 if successful
     //return 1 if all penguins placed (the number of player's penguins is equal to penguins)
     //return 3 if error
-
+    
+    int row, col;
+    for(int i; i<row; i++)
+    {
+        for(int j; j<col; j++)
+        {
+            if (board[row][col] == 1)
+            {
+                //check if the field is 1
+                // check the sum of the following fields' fish
+            }
+        } 
+     //find the best coordinates   
+    }
+    //set the coordinates
     return 0;
 }
 
