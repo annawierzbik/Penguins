@@ -27,7 +27,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
 int write_file(char* argv[], int input_ID, int board[N][N], struct player players[P]);
 
 //a move in the placement phase - one penguin is placed
-int placement(int penguins, struct player* my_player, int board[N][N]);
+int placement(int n, int m, int penguins, struct player* my_player, int my_number, int board[N][N]);
 
 //a move in the movement phase - one penguin is moved
 int movement(struct player* my_player, int board[N][N]);

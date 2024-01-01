@@ -23,7 +23,7 @@ clean:
 	del /Q play.exe
 
 run-auto: deploy-auto
-	play.exe
+	play.exe phase=placement penguins=2 board-example-1.txt board-example-10.txt
 
 run-inter: deploy-inter
 	play.exe

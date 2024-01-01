@@ -8,6 +8,7 @@
 #ifndef _STRUCTURES_
 #define _STRUCTURES_
 
+#define DEBUG 1
 
 struct coordinates{
     int x;

@@ -25,16 +25,27 @@ void create_board(int n, int m, int pla, int pen, int board[][N]){
         int j = rand() % m;
 
         board[i][j] = 1;
+#ifdef DEBUG
+        board[j][i] = 10;
+#endif
     }
 
     for(int j = 0; j < n; j++){
         for (int i = 0; i < m; i++) {
-
+            
             if(board[j][i] != 1){
                 num = rand() % 4 ;
-                board[j][i] = num;
+                board[j][i] = num;            
             }
         }
+#ifdef DEBUG
+        for (int i = 0; i < m; i++) {
+            if(board[j][i] != 10){
+                num = rand() % 4 ;
+                board[j][i] = 10*num;            
+            }
+        }
+#endif
     }
 }
 
@@ -42,20 +53,20 @@ void display_board(int n, int m, int board[][N]){
 
     printf("\n\n    ");
 
-    for(int i = 0; i < n; i++)  printf("%c ", i+'a');
+    for(int i = 0; i < n; i++)  printf(" %c ", i+'a');
     printf("\n    ");
 
-    for(int i = 1; i < 2*n; i++)  printf("_");
+    for(int i = 1; i < 2*n; i++)  printf("__");
     printf("\n");
 
     for(int j = 0; j < m; j++){
 
-        if(j < 10)  printf(" %d |", j);
-        else printf("%d |", j);
+        if(j < 10)  printf(" %.2d |", j);
+        else printf("%.2d |", j);
 
         for(int i = 0; i < n; i++){
-            if(board[i][j] >= 'A') printf("%c ", board[i][j]);
-            else printf("%d ", board[i][j]);
+            if(board[i][j] >= 'A') printf(" %c ", board[i][j]);
+            else printf("%.2d ", board[i][j]);
         }
 
         printf("\n");
