@@ -13,6 +13,8 @@
 
 #define DEBUG 1
 //#undef DEBUG 
+//Because N*2 + N = 26*3 =78
+#define MAX_LINE_LENGTH 80
 
 struct coordinates{
     int x;

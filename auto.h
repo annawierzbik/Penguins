@@ -21,7 +21,7 @@ int is_txt(char* str);
 
 //reads state of the game from the input file
 //if my_ID is on the list, assigns us the proper player number
-int read_file(char* argv[], int input_ID, int board[N][N], struct player players[P], char* my_ID, int* my_number);
+int read_file(char* argv[], int input_ID, int board[N][N], struct player players[P], char* my_ID, int* my_number, int * row, int *col);
 
 //writes state of the game to the output file
 int write_file(char* argv[], int input_ID, int board[N][N], struct player players[P]);

@@ -1,14 +1,8 @@
+#include <stdlib.h>
 #include "auto.h"
 #include "board.h"
 
 int interpret(int argc,char* argv[],int* phase,int* penguins,int* name, int* input_ID, int* output_ID){
-
-#ifdef DEBUG
-    printf("\nInput parameters:\n");
-    for (int i = 0; i < argc; i++)  {
-        printf(">> Argument %d: %s", i, argv[i]);
-    }
-#endif
     if (argc < 2)
     {
         printf("\n\nIncorrect input parameters.\n");
@@ -27,7 +21,7 @@ int interpret(int argc,char* argv[],int* phase,int* penguins,int* name, int* inp
         else if(is_txt(argv[i]) && *input_ID==0) *input_ID = i;
         else if(is_txt(argv[i]) && *input_ID!=0) *output_ID = i;
         else{
-            printf("Cannot interpret command line");
+            printf("Cannot interpret command inputRow");
             return 0;
         }
     }
@@ -51,19 +45,54 @@ int is_txt(char* str){
     return 0;
 
 }
-
-int read_file(char* argv[], int input_ID, int board[N][N], struct player players[P], char* my_ID, int* my_number){
-
-    FILE *input = fopen(argv[input_ID], "r");
-    if(input == NULL){
-        printf("Input file cannot be opened\n");
-        return 0;
-    }
-
+   
     //read data from file and store it in structures
     //return 0 if any errors occur and print what went wrong
     //if any of player ID's match ours *my_number is the number of the player with that ID; else it stays the same (-1)
+int read_file(char* argv[], int input_ID, int board[N][N], struct player players[P], char* my_ID, int* my_number, int* row, int* col){
+    int row_index = 0, col_index = 0;
+    FILE *input = fopen(argv[input_ID], "r");
+    char inputRow[MAX_LINE_LENGTH];
+    int lineNumber = 0;
+    int playerNumber = 0;
 
+    if(input == NULL){    printf("Input file cannot be opened\n");    return 0;}
+    row_index = 0;
+    while (fgets(inputRow, sizeof(inputRow), input)) {
+        // printf("Line: %s\n", inputRow);
+
+        if (lineNumber == 0) {
+            sscanf(inputRow, "%d %d", col, row);
+            lineNumber++;
+            continue;
+        }
+        
+        if (lineNumber < *row) {    
+            char *token = strtok(inputRow, " ");
+            col_index = 0;
+            while (token != NULL) {
+                int number;
+                if (sscanf(token, "%d", &number) != 1) {
+                    break;
+                }
+                token = strtok(NULL, " ");
+                board[col_index][row_index] = number;
+                col_index++;
+            }
+        }
+
+        if (lineNumber >= *row) {
+            char playerName[MAX_LINE_LENGTH];
+            int playerNum = 0;
+            int playerFish = 0;
+            sscanf(inputRow, "%s %d %d", playerName, &playerNum, &playerFish);
+            //printf("Player: %s, Id: %d, Fish: %d\n", playerName, playerNum, playerFish);
+            players[playerNumber].fish = playerFish;
+            playerNumber++;
+        }
+        lineNumber++;
+        row_index++;
+    }
     fclose(input);
     return 1;
 }
@@ -78,6 +107,7 @@ int write_file(char* argv[], int output_ID, int board[N][N], struct player playe
     return 1;
     }
 
+//Function returning the amount of penguins the player has on board
 int count_my_penguins(int n, int m, int board[N][N], int my_number)
 {    
     int count=0;
@@ -91,20 +121,20 @@ int count_my_penguins(int n, int m, int board[N][N], int my_number)
     return count;
 }
 
+//funtion counting the fish on the 4 surrounding files
 int countFishAround(int x, int y, int n, int m, int board[N][N])
 {
     int fishAround = 0;
     //here we sum the amount of fish on the four floes we can move to
     if (x-1>=0) fishAround+=board[x-1][y];
-    if (x+1<n)  fishAround+=board[x+1][y];
+    if (x+1<m)  fishAround+=board[x+1][y];
     if (y-1>=0) fishAround+=board[x][y-1];
-    if (y+1<m)  fishAround+=board[x][y+1];
-#ifdef DEBUG 
+    if (y+1<n)  fishAround+=board[x][y+1];
     printf("Fish Around board[%d][%d] = %d\n", x, y, fishAround);
-#endif
+
     return fishAround;
 }
-
+//function choosing the best coordinates (based on the amount of fish around) and placing the penguin
 int place_penguin(int n, int m, int board[N][N], int my_number, int penguinsPlaced, struct player* my_player )
 {
     struct coordinates best;
@@ -150,11 +180,10 @@ int placement(int n, int m, int penguins, struct player* my_player, int my_numbe
     int penguinsPlaced = 0;
     penguinsPlaced = count_my_penguins(n,m, board, my_number);
 
-#ifdef DEBUG
     printf("Player %d has %d penguins to place\n", my_number, penguins);
     printf("- counted penguins for player %d = %d\n", my_number, penguinsPlaced);
     printf("- penguins to place: %d\n", penguins - penguinsPlaced);
-#endif
+
 
     if (penguinsPlaced>penguins) return 3; //some mistake must have happened
     else if (penguinsPlaced==penguins) return 1; //all penguins are placed on board
