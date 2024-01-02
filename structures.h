@@ -7,8 +7,12 @@
 
 #ifndef _STRUCTURES_
 #define _STRUCTURES_
+//so we can choose which version we want - autonomous or interactive (board is displayed differently etc.)
+#define AUTO 1
+//#undef AUTO
 
 #define DEBUG 1
+#undef DEBUG 
 
 struct coordinates{
     int x;
