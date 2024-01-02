@@ -94,27 +94,35 @@ int count_my_penguins(int n, int m, int board[N][N], int my_number)
 int countFishAround(int x, int y, int n, int m, int board[N][N])
 {
     int fishAround = 0;
-    
+    //here we sum the amount of fish on the four floes we can move to
+    if (x-1>=0) fishAround+=board[x-1][y];
+    if (x+1<n)  fishAround+=board[x+1][y];
+    if (y-1>=0) fishAround+=board[x][y-1];
+    if (y+1<m)  fishAround+=board[x][y+1];
+#ifdef DEBUG 
+    printf("Fish Around board[%d][%d] = %d\n", x, y, fishAround);
+#endif
     return fishAround;
 }
+
 int place_penguin(int n, int m, int board[N][N], int my_number, int penguinsPlaced, struct player* my_player )
 {
     struct coordinates best;
     int bestFish=0;
     int placementFound = 0;
 
-    for(int row=0; row<n; row++)
+    for(int row=0; row<m; row++)
     {
-        for(int col=0; col<m; col++)
+        for(int col=0; col<n; col++)
         {
-            if(board[row][col]==10)
+            if(board[col][row] == 10)
             {
                 int fishAround = 0;
-                fishAround = countFishAround(row, col, n, m, board);
+                fishAround = countFishAround(col, row, n, m, board);
                 if (fishAround>=bestFish)
                 {
-                    best.x =row;
-                    best.y =col;
+                    best.x =col;
+                    best.y =row;
                     bestFish = fishAround;
                     placementFound = 1;
                 }
@@ -145,13 +153,12 @@ int placement(int n, int m, int penguins, struct player* my_player, int my_numbe
 #ifdef DEBUG
     printf("Player %d has %d penguins to place\n", my_number, penguins);
     printf("- counted penguins for player %d = %d\n", my_number, penguinsPlaced);
-    printf("- penguins to place: %d", penguins - penguinsPlaced);
+    printf("- penguins to place: %d\n", penguins - penguinsPlaced);
 #endif
 
     if (penguinsPlaced>penguins) return 3; //some mistake must have happened
     else if (penguinsPlaced==penguins) return 1; //all penguins are placed on board
-    else
-    {
+    else {
         return place_penguin(n, m, board, my_number, penguinsPlaced, my_player);   
     }
     return 3;

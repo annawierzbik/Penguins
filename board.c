@@ -31,23 +31,24 @@ void create_board(int n, int m, int pla, int pen, int board[][N]){
     }
 
 #ifdef DEBUG
+    for(int j = 0; j < n; j++){
         for (int i = 0; i < m; i++) {
             if(board[j][i] != 10){
                 num = rand() % 4 ;
                 board[j][i] = 10*num;            
             }
         }
+    }
 #else
     for(int j = 0; j < n; j++){
-        for (int i = 0; i < m; i++) {
-            
+        for (int i = 0; i < m; i++) {       
             if(board[j][i] != 1){
                 num = rand() % 4 ;
-                board[j][i] = num;            
+                board[j][i] = num;          
             }
         }
-#endif
     }
+#endif
 }
 
 void display_board(int n, int m, int board[][N]){

@@ -12,7 +12,7 @@
 //#undef AUTO
 
 #define DEBUG 1
-#undef DEBUG 
+//#undef DEBUG 
 
 struct coordinates{
     int x;
