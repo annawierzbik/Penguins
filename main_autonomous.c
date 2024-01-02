@@ -7,7 +7,7 @@ int main(int argc, char *argv[]){
 
     char* my_ID = "wbefpq";
     int penguins = 0, phase = -1, name = 0, input_ID = 0, output_ID = 0;
-    int n = 0, m = 0;
+    int n_col = 0, m = 0;
     if(!interpret(argc, argv, &phase, &penguins, &name, &input_ID, &output_ID)) return 3; //if an error occurs while interpreting
 
     if(name){
@@ -18,18 +18,18 @@ int main(int argc, char *argv[]){
     int board[N][N];
     struct player players[P];
     int my_number = -1;
-    if(!read_file(argv, input_ID, board, players, my_ID, &my_number, &m, &n)) return 2; //if an error occurs while reading the file
+    if(!read_file(argv, input_ID, board, players, my_ID, &my_number, &m, &n_col)) return 2; //if an error occurs while reading the file
 
     int result = 3; //We assume that there might be a situation when phase is not specified or read incorrectly. That is an error.
 #ifdef DEBUG    
-    display_board(m, n, board);
+    display_board(m, n_col, board);
     my_number = 1;
 #endif
 
-    if(phase == 0) result = placement(n, m, penguins, &players[my_number], my_number, board);
+    if(phase == 0) result = placement(n_col, m, penguins, &players[my_number], my_number, board);
     else if (phase == 1) result = movement(&players[my_number], board);
-#ifdef DEBUG    
-    display_board(m, n, board);
+#ifdef DEBUG
+    if (result != 3) display_board(m, n_col, board);
 #endif
     if(!write_file(argv, output_ID, board, players)) return 2; //if an error occurs while writing the file
     return result; //returns whatever the placement/movement operation returned

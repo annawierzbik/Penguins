@@ -23,15 +23,9 @@ void create_board(int n, int m, int pla, int pen, int board[][N]){
 
         int i = rand() % n;
         int j = rand() % m;
-#ifdef DEBUG
+#ifdef AUTO
         board[j][i] = 10;
-#else
-        board[i][j] = 1;
-#endif
-    }
-
-#ifdef DEBUG
-    for(int j = 0; j < n; j++){
+         for(int j = 0; j < n; j++){
         for (int i = 0; i < m; i++) {
             if(board[j][i] != 10){
                 num = rand() % 4 ;
@@ -40,6 +34,7 @@ void create_board(int n, int m, int pla, int pen, int board[][N]){
         }
     }
 #else
+        board[i][j] = 1;
     for(int j = 0; j < n; j++){
         for (int i = 0; i < m; i++) {       
             if(board[j][i] != 1){
@@ -49,6 +44,7 @@ void create_board(int n, int m, int pla, int pen, int board[][N]){
         }
     }
 #endif
+}
 }
 
 void display_board(int n, int m, int board[][N]){

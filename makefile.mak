@@ -14,7 +14,7 @@ debug-inter: build-inter
 	gdb penguins.exe
 
 build-auto: clean
-	gcc -g -DAUTO -DDEBUG -Wall main_autonomous.c auto.c setup.c board.c game.c penguin.c move.c -o penguins
+	gcc -g -Wno-return-type -DAUTO -DDEBUG -Wall main_autonomous.c auto.c setup.c board.c game.c penguin.c move.c -o penguins
 
 build-inter: clean
 	gcc -g -Wall main_interactive.c setup.c board.c game.c penguin.c move.c -o penguins

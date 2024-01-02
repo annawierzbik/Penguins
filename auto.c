@@ -13,7 +13,7 @@ int interpret(int argc,char* argv[],int* phase,int* penguins,int* name, int* inp
     
         return 3;
     }
-    for(int i = 1; i < argc; i++){
+    for(int i = 1; i < argc && i < MAX_NUM_PARAMS; i++){
         if(strcmp("phase=placement", argv[i]) == 0) *phase = 0;
         else if(strcmp("phase=movement", argv[i]) == 0) *phase = 1;
         else if(strcmp("name", argv[i]) == 0) *name = 1;
@@ -107,89 +107,82 @@ int write_file(char* argv[], int output_ID, int board[N][N], struct player playe
     return 1;
     }
 
-//Function returning the amount of penguins the player has on board
-int count_my_penguins(int n, int m, int board[N][N], int my_number)
-{    
+int count_my_penguins(int n_col, int n_row, int board[N][N], int my_number){    
     int count=0;
-    for(int i; i<n; i++)
-    {
-        for(int j; j<m; j++)
-        {
-            if (board[i][j]%10==my_number) count++;
+    for (int col=0; col<n_col; col++) {
+        for (int row=0; row<n_row; row++) {
+#ifdef DEBUG
+            printf("Number on floe board[%d][%d]= %d is:  %d \n",col, row, board[row][col], board[row][col]%10);        
+#endif
+            if (board[row][col]>30) { printf("Error - floe value too big.\n");  return -1;}
+            else if (board[row][col]%10 == my_number) {
+                //printf("\nNumber = %d\n", board[col][row]%10);
+                count++;
+            }
         }
     }  
     return count;
 }
 
-//funtion counting the fish on the 4 surrounding files
-int countFishAround(int x, int y, int n, int m, int board[N][N])
-{
+int countFishAround(int x, int y, int n_col, int n_row, int board[N][N]) {
     int fishAround = 0;
-    //here we sum the amount of fish on the four floes we can move to
-    if (x-1>=0) fishAround+=board[x-1][y];
-    if (x+1<m)  fishAround+=board[x+1][y];
-    if (y-1>=0) fishAround+=board[x][y-1];
-    if (y+1<n)  fishAround+=board[x][y+1];
-    printf("Fish Around board[%d][%d] = %d\n", x, y, fishAround);
-
+        if (x-1>=0) fishAround+=board[y][x-1]/10;
+        if (x+1<n_col)  fishAround+=board[y][x+1]/10;
+        if (y-1>=0) fishAround+=board[y-1][x]/10;
+        if (y+1<n_row)  fishAround+=board[y+1][x]/10;
     return fishAround;
 }
-//function choosing the best coordinates (based on the amount of fish around) and placing the penguin
-int place_penguin(int n, int m, int board[N][N], int my_number, int penguinsPlaced, struct player* my_player )
-{
-    struct coordinates best;
-    int bestFish=0;
-    int placementFound = 0;
 
-    for(int row=0; row<m; row++)
-    {
-        for(int col=0; col<n; col++)
-        {
-            if(board[col][row] == 10)
-            {
+int place_penguin(int n_col, int n_row, int board[N][N], int my_number, int penguinsPlaced, struct player* my_player ) {
+    struct coordinates bestCoordinates;
+    int bestFish=0;
+    int placementFound = 0; //to make sure that the function found any floe to place the penguin
+
+    for(int row=0; row<n_row; row++) {
+        for(int col=0; col<n_col; col++) {
+            if(board[col][row] == 10) {
                 int fishAround = 0;
-                fishAround = countFishAround(col, row, n, m, board);
-                if (fishAround>=bestFish)
-                {
-                    best.x =col;
-                    best.y =row;
+                fishAround = countFishAround(col, row, n_col, n_row, board);
+                //printf("Coordinates [%d][%d] with %d fish around\n", col, row, fishAround);
+                //if there are more fish around then previously - update bestCoordinates and bestFish
+                if (fishAround>=bestFish){
+                    bestCoordinates.x =col;
+                    bestCoordinates.y =row;
                     bestFish = fishAround;
                     placementFound = 1;
                 }
             }
         }
     }
+
     if (placementFound) {
-        my_player->penguin[penguinsPlaced] = best;
-        board[my_player->penguin[penguinsPlaced].x][my_player->penguin[penguinsPlaced].y] = my_number;
+        my_player->penguin[penguinsPlaced] = bestCoordinates; //place penguin
+        board[my_player->penguin[penguinsPlaced].x][my_player->penguin[penguinsPlaced].y] = my_number; //change floe value
         my_player->fish++;
         return 0;
     }
+    else printf("\nError - Did not place penguin. placementFound = %d\n", placementFound);
     return 3;
 }
 
-
-    //find coordinates for the penguin using an algorithm
-    //check coordinates
-    //place the penguin and collect the fish
-    //return 0 if successful
-    //return 1 if all penguins placed (the number of player's penguins is equal to penguins)
-    //return 3 if error
-int placement(int n, int m, int penguins, struct player* my_player, int my_number, int board[N][N]){
-    //check if player has penguins to place 
+int placement(int n_col, int m, int penguins, struct player* my_player, int my_number, int board[N][N]) {
     int penguinsPlaced = 0;
-    penguinsPlaced = count_my_penguins(n,m, board, my_number);
+    penguinsPlaced = count_my_penguins(n_col, m, board, my_number);
 
-    printf("Player %d has %d penguins to place\n", my_number, penguins);
-    printf("- counted penguins for player %d = %d\n", my_number, penguinsPlaced);
-    printf("- penguins to place: %d\n", penguins - penguinsPlaced);
-
-
-    if (penguinsPlaced>penguins) return 3; //some mistake must have happened
-    else if (penguinsPlaced==penguins) return 1; //all penguins are placed on board
+    if (penguinsPlaced == -1) {   printf ("Error - incorrect board values.");    return 3;}
+    if (penguinsPlaced>penguins) {  printf("Error - too many penguins on board.\n");     return 3;} 
+    else if (penguinsPlaced==penguins) {printf("All penguins are already placed on board.\n"); return 1;}
     else {
-        return place_penguin(n, m, board, my_number, penguinsPlaced, my_player);   
+        return place_penguin(n_col, m, board, my_number, penguinsPlaced, my_player);
     }
+
+#ifdef DEBUG
+    printf("\nPlayer %d has %d penguins to place\n", my_number, penguins);
+    printf("- penguins on board: %d\n", penguinsPlaced);
+    printf("- penguins to place: %d\n\n", penguins - penguinsPlaced);
+#endif
+    
+    printf("\nPlacement failed.\n"); //the function should always go into one of the categories earlier
     return 3;
 }
 

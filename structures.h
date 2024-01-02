@@ -12,9 +12,10 @@
 //#undef AUTO
 
 #define DEBUG 1
-//#undef DEBUG 
+#undef DEBUG 
 //Because N*2 + N = 26*3 =78
 #define MAX_LINE_LENGTH 80
+#define MAX_NUM_PARAMS 5
 
 struct coordinates{
     int x;
