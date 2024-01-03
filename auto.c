@@ -61,7 +61,7 @@ int placement(int cols, int rows, int penguins, struct player* my_player, int my
     if (penguinsPlaced == -1) {   printf("Error - incorrect board values.\n");    return 3;}
     if (penguinsPlaced > penguins) {  printf("Error - too many penguins on board.\n");     return 3;}
 
-    else if (penguinsPlaced == penguins) return 1; //all penguins are placed on board
+    else if (penguinsPlaced == penguins) {printf("\nAll penguins placed."); return 1;} //all penguins are placed on board
     else return place_penguin(cols, rows, board, my_number, penguinsPlaced, my_player);
 
     printf ("Error - placement failed.\n");
@@ -284,7 +284,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
 int identify(char* my_ID, struct player players[P], int* number_of_players){
 
     for(int i = 0; i < *number_of_players; i++){
-        if(strcmp(players[i].name, my_ID) == 0) return i;
+        if(strcmp(players[i].name, my_ID) == 0) return i+1;
     }
     strcpy(players[*number_of_players].name, my_ID);
     players[*number_of_players].fish = 1;
