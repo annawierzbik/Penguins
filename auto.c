@@ -73,7 +73,7 @@ int count_my_penguins(int cols, int rows, int board[N][N], int my_number){
     for (int col=0; col<cols; col++) {
         for (int row=0; row<rows; row++) {
 #ifdef DEBUG
-            printf("Number on floe board[%d][%d]= %d is:  %d \n",col, row, board[row][col], board[row][col]%10);
+            //printf("Number on floe board[%d][%d]= %d is:  %d \n",col, row, board[row][col], board[row][col]%10);
 #endif
             if (board[row][col]>30) { printf("Error - floe value too big (floe[%d][%d])\n", row, col);  return -1;}
             else if (board[row][col]%10 == my_number) {
@@ -169,7 +169,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
             lineNumber++;
         }
 
-        else if (lineNumber < *rows) {
+        else if (lineNumber <= *rows) {
 
             char *token = strtok(inputRow, " ");
             col_index = 0;
@@ -196,6 +196,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
             playerNumber++;
 
             #ifdef DEBUG
+            printf("\n>>lineNumber = %d", lineNumber);
             printf("PlayerName: %s, Id: %d, Fish: %d\n", playerName, playerNum, playerFish);
             #endif
         }
