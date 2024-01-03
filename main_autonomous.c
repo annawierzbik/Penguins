@@ -26,14 +26,13 @@ int main(int argc, char *argv[]){
 
 #ifdef DEBUG
     display_board(rows, columns, board);
-    my_number = 1;
 #endif
 
     if(phase == 0) result = placement(columns, rows, penguins, &players[my_number], my_number, board);
     else if (phase == 1) result = movement(columns, rows, penguins, board, my_number, &players[my_number]);
 //int cols, int rows,int penguins, int board[N][N], int my_number, struct player* my_player
 #ifdef DEBUG
-    if(result != 3) display_board(rows, n, board);
+    if(result != 3) display_board(rows, columns, board);
 #endif
 
     //if an error occurs while writing the file
