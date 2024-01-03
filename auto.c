@@ -140,21 +140,21 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 int movement(int cols, int rows,int penguins, int board[N][N], int my_number, struct player* my_player){
 /* ZALACZ ZMIENNE */
    //pick a penguin that can make a move
-    int whichPengiun=0;
+    int whichPenguin=0;
     int mostFish=0;
     for(int i=0; i<penguins; i++ ){
         int x=my_player->penguin[i].x;
         int y=my_player->penguin[i].y;
         if(count_fish_around(x,y,cols,rows)>0){
-            whichPengiun=i;
+            whichPenguin=i;
         }
     }//finds the pengiung that can move
     int fishRight=0;
     int fishLeft=0;
     int fishUp=0;
     int fishDown=0;
-    int x=my_player->penguin[i].x;
-    int y=my_player->penguin[i].y;
+    int x=my_player->penguin[whichPenguin].x;
+    int y=my_player->penguin[whichPenguin].y;
     int newX=x+1;
     int newY=y;
     if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
@@ -205,11 +205,11 @@ int movement(int cols, int rows,int penguins, int board[N][N], int my_number, st
         return 3;
     }
     else{
-        my_player->penguin[whichPengiun].x=movex;
-        my_player->penguin[whichPengiun].y=movey;
-        my_player->fish+=board[my_player->penguin[whichPengiun].x][ my_player->penguin[whichPengiun].y]/10;
+        my_player->penguin[whichPenguin].x=movex;
+        my_player->penguin[whichPenguin].y=movey;
+        my_player->fish+=board[my_player->penguin[whichPenguin].x][ my_player->penguin[whichPenguin].y]/10;
         board[x][y]=00;
-        board[my_player->penguin[whichPengiun].x][ my_player->penguin[whichPengiun].y]=my_number;
+        board[my_player->penguin[whichPenguin].x][ my_player->penguin[whichPenguin].y]=my_number;
         return 0;
     }
     //find new coordinates for the penguin using an algorithm
