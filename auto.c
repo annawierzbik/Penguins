@@ -169,7 +169,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
             lineNumber++;
         }
 
-        else if (lineNumber < *rows) {
+        else if (lineNumber <= *rows) {
 
             char *token = strtok(inputRow, " ");
             col_index = 0;
@@ -196,6 +196,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
             playerNumber++;
 
             #ifdef DEBUG
+            printf("\n>>lineNumber = %d", lineNumber);
             printf("PlayerName: %s, Id: %d, Fish: %d\n", playerName, playerNum, playerFish);
             #endif
         }
