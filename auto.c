@@ -73,7 +73,7 @@ int count_my_penguins(int cols, int rows, int board[N][N], int my_number){
     for (int col=0; col<cols; col++) {
         for (int row=0; row<rows; row++) {
 #ifdef DEBUG
-            //printf("Number on floe board[%d][%d]= %d is:  %d \n",col, row, board[row][col], board[row][col]%10);
+            printf("Number on floe board[%d][%d]= %d is:  %d \n",col, row, board[row][col], board[row][col]%10);
 #endif
             if (board[row][col]>30) { printf("Error - floe value too big (floe[%d][%d])\n", row, col);  return -1;}
             else if (board[row][col]%10 == my_number) {
@@ -137,16 +137,60 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 ///_________________________________________________MOVEMENT FUNCTIONS_________________________________________________
 
 
-int movement(struct player* my_player, int board[N][N]){
+int movement(int cols, int rows,int penguins, int board[N][N], int my_number, struct player* my_player){
+/* ZALACZ ZMIENNE */
+   /* //pick a penguin that can make a move
+    int whichPengiun=0;
+    int mostFish=0;
+    for(int i=0; i<penguins; i++ ){
+        int x=my_player->penguin[i].x;
+        int y=my_player->penguin[i].y;
+        if(count_fish_around(x,y,cols,rows)>0){
+            whichPengiun=i;
+        }
 
-    //pick a penguin that can make a move
+    }//finds the pengiung that can move
+    int fishRight=0;
+    int fishLeft=0;
+    int fishUp=0;
+    int fishDown=0;
+    int x=my_player->penguin[i].x;
+    int y=my_player->penguin[i].y;
+    int newX=x+1;
+    int newY=y;
+    while(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
+        int temp=board[newX][newY]/10;
+        if(fishDown<temp) fishDown=temp;
+        newX++;
+    }
+    newX=x-1;
+    newY=y;
+    while(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
+        int temp=board[newX][newY]/10;
+        if(fishUp<temp) fishUp=temp;
+        newX--;
+    }
+    newX=x;
+    newY=y+1;
+    while(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
+        int temp=board[newX][newY]/10;
+        if(fishRight<temp) fishRight=temp;
+        newY++;
+    }
+    newX=x;
+    newY=y+1;
+    while(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
+        int temp=board[newX][newY]/10;
+        if(fishRight<temp) fishRight=temp;
+        newY--;
+    }
     //find new coordinates for the penguin using an algorithm
     //check the validity of the move
     //move the penguin and collect the fish
     //return 0 if successful
     //return 1 if no penguin can move
     //return 3 if error
-
+*/
     return 0;
 }
 
@@ -169,7 +213,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
             lineNumber++;
         }
 
-        else if (lineNumber <= *rows) {
+        else if (lineNumber < *rows) {
 
             char *token = strtok(inputRow, " ");
             col_index = 0;
@@ -196,7 +240,6 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
             playerNumber++;
 
             #ifdef DEBUG
-            printf("\n>>lineNumber = %d", lineNumber);
             printf("PlayerName: %s, Id: %d, Fish: %d\n", playerName, playerNum, playerFish);
             #endif
         }
