@@ -33,7 +33,7 @@ int main(int argc, char *argv[]){
     else if (phase == 1) result = movement(&players[my_number], board);
 
 #ifdef DEBUG
-    if(result != 3) display_board(rows, n, board);
+    if(result != 3) display_board(rows, columns, board);
 #endif
 
     //if an error occurs while writing the file
