@@ -147,6 +147,7 @@ int check_move(int x, int y, int new_x, int new_y, int board [][N]){
             return 1;
         }
     }
+    return 0;
 }
 
 int can_move_there(int n, int m, int new_x, int new_y, struct coordinates penguin, int board[][N]){
