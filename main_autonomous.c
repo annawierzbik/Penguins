@@ -26,7 +26,6 @@ int main(int argc, char *argv[]){
 
 #ifdef DEBUG
     display_board(rows, columns, board);
-    my_number = 1;
 #endif
 
     if(phase == 0) result = placement(columns, rows, penguins, &players[my_number], my_number, board);

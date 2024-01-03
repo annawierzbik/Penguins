@@ -196,7 +196,6 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
             playerNumber++;
 
             #ifdef DEBUG
-            printf("\n>>lineNumber = %d", lineNumber);
             printf("PlayerName: %s, Id: %d, Fish: %d\n", playerName, playerNum, playerFish);
             #endif
         }
