@@ -145,7 +145,7 @@ int movement(int cols, int rows,int penguins, int board[N][N], int my_number, st
     for(int i=0; i<penguins; i++ ){
         int x=my_player->penguin[i].x;
         int y=my_player->penguin[i].y;
-        if(count_fish_around(x,y,cols,rows)>0){
+        if(count_fish_around(x,y,cols,rows,board)>0){
             whichPenguin=i;
         }
     }//finds the pengiung that can move
@@ -157,6 +157,9 @@ int movement(int cols, int rows,int penguins, int board[N][N], int my_number, st
     int y=my_player->penguin[whichPenguin].y;
     int newX=x+1;
     int newY=y;
+    int error=0;
+    int movex=0;
+    int movey=0;
     if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
         int temp=board[newX][newY]/10;
         if(temp>mostFish){
