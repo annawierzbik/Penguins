@@ -25,12 +25,10 @@ int is_txt(char* str);
 
 /**_________________________________________________PLACEMENT FUNCTIONS________________________________________________**/
 
-
-/// @param cols columns, @param rows rows, @param penguins how many penguins to place,
+//a move in the placement phase - one penguin is placed (and added 1 fish to player's fish)
+/// @param cols number of columns, @param rows number of rows, @param penguins number of penguins,
 /// @param my_player the player placing the fish, @param my_number player's number,
 /// @param board 2-dim array containing all floes,
-
-//a move in the placement phase - one penguin is placed (and added 1 fish to player's fish)
 /// @return 0 (success) / 1 (all penguins placed) / 3 (error)
 int placement(int cols, int rows, int penguins, struct player* my_player, int my_number, int board[N][N]);
 
