@@ -10,7 +10,7 @@
 //#undef AUTO
 
 #define DEBUG 1
-#undef DEBUG
+//#undef DEBUG
 
 #endif // _CONSTANTS_
 
