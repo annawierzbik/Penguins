@@ -146,6 +146,7 @@ int movement(int cols, int rows,int penguins, int board[N][N], int my_number, st
             if(board[i][j]%10==my_number){
                 my_player->penguin[p].x=i;
                 my_player->penguin[p].y=j;
+                p++;
             }
         }
    }
@@ -154,6 +155,7 @@ int movement(int cols, int rows,int penguins, int board[N][N], int my_number, st
     for(int i=0; i<p; i++ ){
         int x=my_player->penguin[i].x;
         int y=my_player->penguin[i].y;
+        //printf("nr and cord of peng: %d %d %d\n", i, x, y);
         if(count_fish_around(x,y,cols,rows,board)>0){
             whichPenguin=i;
         }
@@ -162,8 +164,8 @@ int movement(int cols, int rows,int penguins, int board[N][N], int my_number, st
     int fishLeft=0;
     int fishUp=0;
     int fishDown=0;
-    printf("nr pingwina: %d\n", whichPenguin);
-    printf("cord of peng: %d %d\n", my_player->penguin[whichPenguin].x, my_player->penguin[whichPenguin].y);
+   // printf("nr pingwina: %d\n", whichPenguin);
+   // printf("cord of peng: %d %d\n", my_player->penguin[whichPenguin].x, my_player->penguin[whichPenguin].y);
     int x=my_player->penguin[whichPenguin].x;
     int y=my_player->penguin[whichPenguin].y;
     int newX=x+1;
