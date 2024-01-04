@@ -30,11 +30,10 @@ int can_player_move(int n, int m, int pen, struct player* player, int board[][N]
 //checks whether any penguin of any player can move
 int can_any_move(int n, int m, int pla, int pen, struct player players[], int board[][N]);
 
-//x, y - coordinates of a floe
-//pen - penguins per player
-//player - a pointer to the current player
-//returns the index of a penguin of the player located on the floe [x][y]
-//if there is no penguin there returns -1
+//asks the player to choose one of his penguins (only if there are more then 1 penguin per players)
+/// @param x coordinate of a floe (x-th column) @param y coordinate of a floe (y-th row), @param pen penguins per player
+/// @param player  a pointer to the current player
+/// @return the index of a penguin of the player located on the floe[x][y] or -1 if there is no penguin there
 int which_penguin(int x, int y, int pen, struct player* player);
 
 //pen - penguins per player
