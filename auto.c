@@ -54,14 +54,13 @@ int is_txt(char* str){
 
 
 int placement(int cols, int rows, int penguins, struct player* my_player, int my_number, int board[N][N]){
-    //check if player has penguins to place
-    int penguinsPlaced = 0;
-    penguinsPlaced = count_my_penguins(cols, rows, board, my_number);
+
+    int penguinsPlaced = count_my_penguins(cols, rows, board, my_number);
 
     if (penguinsPlaced == -1) {   printf("Error - incorrect board values.\n");    return 3;}
     if (penguinsPlaced > penguins) {  printf("Error - too many penguins on board.\n");     return 3;}
 
-    else if (penguinsPlaced == penguins) {printf("\nAll penguins placed."); return 1;} //all penguins are placed on board
+    else if (penguinsPlaced == penguins) {printf("\nAll penguins placed."); return 1;}
     else return place_penguin(cols, rows, board, my_number, penguinsPlaced, my_player);
 
     printf ("Error - placement failed.\n");
@@ -69,29 +68,24 @@ int placement(int cols, int rows, int penguins, struct player* my_player, int my
 }
 
 int count_my_penguins(int cols, int rows, int board[N][N], int my_number){
+
     int count=0;
-    for (int col=0; col<cols; col++) {
-        for (int row=0; row<rows; row++) {
-#ifdef DEBUG
-            //printf("Number on floe board[%d][%d]= %d is:  %d \n",col, row, board[row][col], board[row][col]%10);
-#endif
+
+    for (int row=0; row<rows; row++) {
+        for (int col=0; col<cols; col++) {
             if (board[row][col]>30) { printf("Error - floe value too big (floe[%d][%d])\n", row, col);  return -1;}
-            else if (board[row][col]%10 == my_number) {
-                //printf("\nNumber = %d\n", board[col][row]%10);
-                count++;
-            }
+            else if (board[row][col]%10 == my_number) count++;
         }
     }
     return count;
 }
 
-int count_fish_around(int x, int y, int cols, int rows, int board[N][N]){
+int count_fish_around(int col, int row, int cols, int rows, int board[N][N]){
     int fishAround = 0;
-    //here we sum the amount of fish on the four floes we can move to
-    if (x-1>=0) fishAround+=board[x-1][y]/10;
-    if (x+1<rows)  fishAround+=board[x+1][y]/10;
-    if (y-1>=0) fishAround+=board[x][y-1]/10;
-    if (y+1<cols)  fishAround+=board[x][y+1]/10;
+    if (col-1>=0) fishAround+=board[row][col-1]/10;
+    if (col+1<cols)  fishAround+=board[row][col+1]/10;
+    if (row-1>=0) fishAround+=board[row-1][col]/10;
+    if (row+1<rows)  fishAround+=board[row+1][col]/10;
 
     return fishAround;
 }
@@ -99,19 +93,19 @@ int count_fish_around(int x, int y, int cols, int rows, int board[N][N]){
 int place_penguin(int cols, int rows, int board[N][N], int my_number, int penguinsPlaced, struct player* my_player){
     struct coordinates bestCoordinates;
     int bestFish=0;
-    int placementFound = 0; //to make sure that the function found any floe to place the penguin
+    int placementFound = 0;
 
-    for(int row=0; row<rows; row++){
-        for(int col=0; col<cols; col++){
+    for(int row = 0; row < rows; row++){
+        for(int col = 0; col < cols; col++){
 
-            if(board[col][row] == 10){
+            if(board[row][col] == 10){
 
                 int fishAround = count_fish_around(col, row, cols, rows, board);
                 //printf("Coordinates [%d][%d] with %d fish around\n", col, row, fishAround);
 
-                if(fishAround>=bestFish){
-                    bestCoordinates.x =col;
-                    bestCoordinates.y =row;
+                if(fishAround >= bestFish){
+                    bestCoordinates.x = row;
+                    bestCoordinates.y = col;
                     bestFish = fishAround;
                     placementFound = 1;
                 }
@@ -137,37 +131,34 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 ///_________________________________________________MOVEMENT FUNCTIONS_________________________________________________
 
 
-int movement(int cols, int rows,int penguins, int board[N][N], int my_number, struct player* my_player){
+int movement(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player){
 /* ZALACZ ZMIENNE */
    //pick a penguin that can make a move
    int p=0;
-   for(int i=0; i<rows; i++){
-        for(int j=0; j<cols; j++){
-            if(board[i][j]%10==my_number){
-                my_player->penguin[p].x=i;
-                my_player->penguin[p].y=j;
+   for(int row=0; row<rows; row++){
+        for(int col=0; col<cols; col++){
+            if(board[row][col]%10 == my_number){
+                my_player->penguin[p].x=row;
+                my_player->penguin[p].y=col;
                 p++;
             }
         }
    }
     int whichPenguin=0;
     int mostFish=0;
-    for(int i=0; i<p; i++ ){
-        int x=my_player->penguin[i].x;
-        int y=my_player->penguin[i].y;
+    for(int i = 0; i < p; i++ ){
+        int x = my_player->penguin[i].x;
+        int y = my_player->penguin[i].y;
         //printf("nr and cord of peng: %d %d %d\n", i, x, y);
-        if(count_fish_around(x,y,cols,rows,board)>0){
-            whichPenguin=i;
+        if(count_fish_around(y, x, cols, rows, board)>0){
+            whichPenguin = i;
         }
-    }//finds the pengiung that can move
-    int fishRight=0;
-    int fishLeft=0;
-    int fishUp=0;
-    int fishDown=0;
+    }
+
    // printf("nr pingwina: %d\n", whichPenguin);
    // printf("cord of peng: %d %d\n", my_player->penguin[whichPenguin].x, my_player->penguin[whichPenguin].y);
-    int x=my_player->penguin[whichPenguin].x;
-    int y=my_player->penguin[whichPenguin].y;
+    int x = my_player->penguin[whichPenguin].x;
+    int y = my_player->penguin[whichPenguin].y;
     int newX=x+1;
     int newY=y;
     int error=0;
@@ -205,7 +196,7 @@ int movement(int cols, int rows,int penguins, int board[N][N], int my_number, st
         }
     }
     newX=x;
-    newY=y+1;
+    newY=y-1;
     if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
         int temp=board[newX][newY]/10;
          if(temp>mostFish){
@@ -221,19 +212,13 @@ int movement(int cols, int rows,int penguins, int board[N][N], int my_number, st
         return 3;
     }
     else{
-        my_player->penguin[whichPenguin].x=movex;
-        my_player->penguin[whichPenguin].y=movey;
-        my_player->fish+=board[my_player->penguin[whichPenguin].x][ my_player->penguin[whichPenguin].y]/10;
-        board[x][y]=00;
-        board[my_player->penguin[whichPenguin].x][ my_player->penguin[whichPenguin].y]=my_number;
+        my_player->penguin[whichPenguin].x = movex;
+        my_player->penguin[whichPenguin].y = movey;
+        my_player->fish += board[my_player->penguin[whichPenguin].x][ my_player->penguin[whichPenguin].y]/10;
+        board[x][y] = 00;
+        board[my_player->penguin[whichPenguin].x][ my_player->penguin[whichPenguin].y] = my_number;
         return 0;
     }
-    //find new coordinates for the penguin using an algorithm
-    //check the validity of the move
-    //move the penguin and collect the fish
-    //return 0 if successful
-    //return 1 if no penguin can move
-    //return 3 if error
 }
 
 ///__________________________________________________FILE MANAGEMENT__________________________________________________
@@ -241,55 +226,40 @@ int movement(int cols, int rows,int penguins, int board[N][N], int my_number, st
 
 int read_file(char* argv[], int input_ID, int board[N][N], struct player players[P], int* pla, int* rows, int* cols){
 
-    int row_index = 0, col_index = 0;
-    int lineNumber = 0, playerNumber = 0;
+    int playerNumber = 0;
     char inputRow[MAX_LINE_LENGTH];
 
     FILE *input = fopen(argv[input_ID], "r");
     if(input == NULL){ printf("Input file cannot be opened\n"); return 0;}
 
-    while (fgets(inputRow, sizeof(inputRow), input)) {
+    fscanf(input, "%d %d", rows, cols);
 
-        if (lineNumber == 0) {
-            sscanf(inputRow, "%d %d", cols, rows);
-            lineNumber++;
+    for( int row = 0; row < *rows; row++){
+        for(int col = 0; col < *cols; col++){
+            int number;
+            fscanf(input, "%d", &number);
+            board[row][col] = number;
         }
+    }
 
-        else if (lineNumber <= *rows) {
+    fgets(inputRow, sizeof(inputRow), input);
 
-            char *token = strtok(inputRow, " ");
-            col_index = 0;
+    while(fgets(inputRow, sizeof(inputRow), input)){
 
-            while (token != NULL) {
+        char playerName[MAX_LINE_LENGTH];
+        int playerNum, playerFish;
 
-                int number;
-                if (sscanf(token, "%d", &number) != 1) break;
-                token = strtok(NULL, " ");
-                board[col_index][row_index] = number;
-                col_index++;
-            }
-            row_index++;
-        }
-
-        else {
-
-            char playerName[MAX_LINE_LENGTH];
-            int playerNum = 0, playerFish = 0;
-
-            sscanf(inputRow, "%s %d %d", playerName, &playerNum, &playerFish);
-            players[playerNumber].fish = playerFish;
-            strcpy(players[playerNumber].name, playerName);
-            playerNumber++;
+        sscanf(inputRow, "%s %d %d", playerName, &playerNum, &playerFish);
+        players[playerNumber].fish = playerFish;
+        strcpy(players[playerNumber].name, playerName);
+        playerNumber++;
 
             #ifdef DEBUG
             printf("PlayerName: %s, Id: %d, Fish: %d\n", playerName, playerNum, playerFish);
             #endif
-        }
-
-        lineNumber++;
     }
 
-    *pla = playerNumber;
+    *pla = playerNumber - 1;
     fclose(input);
     return 1;
 }
@@ -300,7 +270,7 @@ int identify(char* my_ID, struct player players[P], int* number_of_players){
         if(strcmp(players[i].name, my_ID) == 0) return i+1;
     }
     strcpy(players[*number_of_players].name, my_ID);
-    players[*number_of_players].fish = 1;
+    players[*number_of_players].fish = 0;
     (*number_of_players) += 1;
     return *number_of_players;
 }
@@ -310,12 +280,12 @@ int write_file(char* argv[], int output_ID, int board[N][N], struct player playe
     FILE *output = fopen(argv[output_ID], "w");
     if(output == NULL){ printf("Output file cannot be opened\n"); return 0;}
 
-    fprintf(output, "%d %d\n", cols, rows);
+    fprintf(output, "%d %d\n", rows, cols);
 
-    for(int i = 0; i < cols; i++){
-        for(int j = 0; j < rows; j++){
-            if(board[j][i] > 9) fprintf(output, "%d ", board[j][i]);
-            else fprintf(output, "0%d ", board[j][i]);
+    for(int row = 0; row < rows; row++){
+        for(int col = 0; col < cols; col++){
+            if(board[row][col] > 9) fprintf(output, "%d ", board[row][col]);
+            else fprintf(output, "0%d ", board[row][col]);
         }
         fprintf(output, "\n");
     }
