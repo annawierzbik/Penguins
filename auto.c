@@ -249,9 +249,9 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
 
     while(fscanf(input, "%s %d %d\n", playerName, &playerNum, &playerFish) != EOF){
 
+        playerNumber++;
         players[playerNumber].fish = playerFish;
         strcpy(players[playerNumber].name, playerName);
-        playerNumber++;
 
             #ifdef DEBUG
             printf("PlayerName: %s, Id: %d, Fish: %d\n", playerName, playerNum, playerFish);
@@ -289,8 +289,8 @@ int write_file(char* argv[], int output_ID, int board[N][N], struct player playe
         fprintf(output, "\n");
     }
 
-    for(int i = 0; i < pla; i++){
-        fprintf(output, "%s %d %d\n", players[i].name, i+1, players[i].fish);
+    for(int i = 1; i <= pla; i++){
+        fprintf(output, "%s %d %d\n", players[i].name, i, players[i].fish);
     }
 
     fclose(output);
