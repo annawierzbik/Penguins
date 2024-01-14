@@ -266,11 +266,11 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
 int identify(char* my_ID, struct player players[P], int* number_of_players){
 
     for(int i = 0; i < *number_of_players; i++){
-        if(strcmp(players[i].name, my_ID) == 0) return i+1;
+        if(strcmp(players[i].name, my_ID) == 0) return i;
     }
+    (*number_of_players) += 1;
     strcpy(players[*number_of_players].name, my_ID);
     players[*number_of_players].fish = 0;
-    (*number_of_players) += 1;
     return *number_of_players;
 }
 
