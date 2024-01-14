@@ -242,14 +242,13 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
         }
     }
 
-    fgets(inputRow, sizeof(inputRow), input);
+    fgets(inputRow, sizeof(inputRow), input); // this is so that it skips to the next line after reading the board
 
-    while(fgets(inputRow, sizeof(inputRow), input)){
+    char playerName[MAX_LINE_LENGTH];
+    int playerNum, playerFish;
 
-        char playerName[MAX_LINE_LENGTH];
-        int playerNum, playerFish;
+    while(fscanf(input, "%s %d %d\n", playerName, &playerNum, &playerFish) != EOF){
 
-        sscanf(inputRow, "%s %d %d", playerName, &playerNum, &playerFish);
         players[playerNumber].fish = playerFish;
         strcpy(players[playerNumber].name, playerName);
         playerNumber++;
@@ -259,7 +258,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
             #endif
     }
 
-    *pla = playerNumber - 1;
+    *pla = playerNumber;
     fclose(input);
     return 1;
 }
