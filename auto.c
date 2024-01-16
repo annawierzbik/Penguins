@@ -21,8 +21,8 @@ int interpret(int argc,char* argv[],int* phase,int* penguins,int* name, int* inp
         else if(strcmp("phase=movement", argv[i]) == 0) *phase = 1;
         else if(strcmp("name", argv[i]) == 0) *name = 1;
         else if(strncmp("penguins=", argv[i], 9) == 0) *penguins = penguins_no(argv[i]);
-        else if(is_txt(argv[i]) && *input_ID==0) *input_ID = i;
-        else if(is_txt(argv[i]) && *input_ID!=0) *output_ID = i;
+        else if(is_txt(argv[i]) && *input_ID==-1) *input_ID = i;
+        else if(is_txt(argv[i]) && *input_ID!=-1) *output_ID = i;
         else{
             printf("Error - Cannot interpret command inputRow");
             return 0;
