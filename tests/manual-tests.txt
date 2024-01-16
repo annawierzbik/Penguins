@@ -1,2 +1,129 @@
 HERE IS OUR DOCUMENTATION OF A MANUAL TEST WE CONDUCTED.
-    ...
+
+
+FUNCTION interpret()
+    board file used is called board-example-initial-1.txt and looks like this:
+    5 6
+    00 10 20 30 10 20
+    30 20 10 00 20 10
+    30 00 20 10 00 30
+    20 10 20 30 10 20
+    00 00 20 03 20 30
+    Hania 1 0
+    Ania 2 0
+    igft 3 1
+
+    TEST 1:
+        command used in the terminal: 
+            gcc .\main_autonomous.c .\auto.c 
+            .\a.exe phase=palcement penguins=3 .\board-example-initial.txt result.txt
+        output:
+            Error - Cannot interpret command inputRow
+    --- PASS ---
+
+    TEST 2:
+        command used in the terminal: 
+                gcc .\main_autonomous.c .\auto.c 
+                .\a.exe phase=placement result.txt                           
+        output:    
+            Input file cannot be opened
+    --- PASS ---
+ 
+    TEST 3:
+        command used in the terminal: 
+            gcc .\main_autonomous.c .\auto.c .\board.c
+            .\a.exe phase=placement                                      
+        output:    
+            PlayerName: his, Id: 0, Fish: 0
+            PlayerName: program, Id: 0, Fish: 0
+            PlayerName: cannot, Id: 0, Fish: 0
+            PlayerName: be, Id: 0, Fish: 0
+            PlayerName: run, Id: 0, Fish: 0
+            PlayerName: in, Id: 0, Fish: 0
+            PlayerName: DOS, Id: 0, Fish: 0
+            PlayerName: mode., Id: 0, Fish: 0
+            PlayerName: $, Id: 0, Fish: 0
+            PlayerName: , Id: 0, Fish: 0
+            PlayerName: ☺☻∟, Id: 0, Fish: 0
+            PlayerName: ☺, Id: 0, Fish: 0
+    --- FAIL ---
+  
+    TEST 4:
+        command used in the terminal: 
+            gcc .\main_autonomous.c .\auto.c .\board.c
+            .\a.exe phase=placement penguins =-1 .\board-example-initial.txt result.txt
+        output:
+            Error - Cannot interpret command inputRow
+    --- PASS ---
+
+FUNCTION count_my_penguins()
+    TEST 1:
+        board
+            00 10 20 30 10 20
+            30 20 10 00 20 10
+            30 00 20 10 00 30
+            20 10 20 30 10 20
+            00 00 20 03 20 30
+        correct amount of penguins: 1
+        function output: 1
+    --- PASS ---
+
+    TEST 2:
+        board
+            00 10 20 30 10 20
+            03 02 10 00 00 10
+            30 00 20 10 00 30
+            20 03 20 30 10 20
+            00 00 20 03 20 30
+        correct amount of penguins: 3
+        function output: 3
+    --- PASS ---
+
+    TEST 3:
+        board
+            00 10 20 30 10 20
+            03 02 10 00 00 10
+            70 00 20 10 00 30
+            20 03 20 30 10 20
+            00 00 20 03 20 30
+        correct amount of penguins: -1 (Error - floe value too big (floe[0][2]))
+        function output: -1
+    --- PASS ---
+
+FUNCTION count_fish_around()
+    TEST 1:
+            board
+                00 10 20 30 10 20
+                30 20 10 00 20 10
+                30 00 20 10 00 30
+                20 10 20 30 10 20
+                00 00 20 03 20 30
+            coordinates given to function: [0][1]
+            corrct output: 7
+            function output: 7
+    --- PASS ---
+
+    TEST 2:
+            board
+                00 10 20 30 10 20
+                30 20 10 00 20 10
+                30 00 20 10 00 30
+                20 10 20 30 10 20
+                00 00 20 03 20 30
+            coordinates given to function: [0][3]
+            corrct output: 4
+            function output: 4
+    --- PASS ---
+
+    TEST 3:
+            board
+                00 00 20 30 10 20
+                30 20 10 00 20 10
+                30 00 20 10 00 30
+                20 00 20 30 10 20
+                00 00 20 03 20 30
+            coordinates given to function: [3][2]
+            corrct output: 5
+            function output: 5
+    --- PASS ---
+

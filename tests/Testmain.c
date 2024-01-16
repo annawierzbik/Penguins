@@ -15,7 +15,7 @@ void test_empty_board() {
     int cols = 5, rows = 6, players = 3;
     initialize_board(cols, rows, board);
     create_board(cols, rows, players, 1, board);
-    display_board(cols, rows, board);
+    //display_board(cols, rows, board);
     //since we know that there are no penguins we can test the function
     TEST_ASSERT_EQUAL(count_my_penguins(cols, rows, board, 1), 0);
 }
@@ -34,7 +34,6 @@ void test_board_with_one() {
     board[cols-3][rows-2] = 1;
     board[cols-1][rows-4] = 0;
     display_board(cols, rows, board);
-    //since we know that there are no penguins we can test the function
     TEST_ASSERT_EQUAL(count_my_penguins(cols, rows, board, 1), 2);
 }
 
@@ -48,7 +47,6 @@ void test_invalid_board() {
     board[cols-2][rows-1] = 70;
     printf("Assigned a value too big for our board");
     display_board(cols, rows, board);
-    //since we know that there are no penguins we can test the function
     TEST_ASSERT_EQUAL(count_my_penguins(cols, rows, board, 1), -1);
 }
 
