@@ -229,6 +229,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
     int playerNumber = 0;
     char inputRow[MAX_LINE_LENGTH];
 
+    if(input_ID == -1){ printf("No file name provided\n"); return 0;}
     FILE *input = fopen(argv[input_ID], "r");
     if(input == NULL){ printf("Input file cannot be opened\n"); return 0;}
 
@@ -276,6 +277,7 @@ int identify(char* my_ID, struct player players[P], int* number_of_players){
 
 int write_file(char* argv[], int output_ID, int board[N][N], struct player players[P], int pla, int rows, int cols){
 
+    if(output_ID == -1){ printf("No file name provided for output\n"); return 0;}
     FILE *output = fopen(argv[output_ID], "w");
     if(output == NULL){ printf("Output file cannot be opened\n"); return 0;}
 
