@@ -73,7 +73,7 @@ int count_my_penguins(int cols, int rows, int board[N][N], int my_number){
 
     for (int row=0; row<rows; row++) {
         for (int col=0; col<cols; col++) {
-            if (board[row][col]>30) { printf("Error - floe value too big (floe[%d][%d])\n", row, col);  return -1;}
+            if (board[row][col]>30) { printf("Error - floe value too big (floe[%d][%d])(count_my_penguins())\n", row, col);  return -1;}
             else if (board[row][col]%10 == my_number) count++;
         }
     }
