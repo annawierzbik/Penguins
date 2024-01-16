@@ -34,19 +34,9 @@ FUNCTION interpret()
             gcc .\main_autonomous.c .\auto.c .\board.c
             .\a.exe phase=placement                                      
         output:    
-            PlayerName: his, Id: 0, Fish: 0
-            PlayerName: program, Id: 0, Fish: 0
-            PlayerName: cannot, Id: 0, Fish: 0
-            PlayerName: be, Id: 0, Fish: 0
-            PlayerName: run, Id: 0, Fish: 0
-            PlayerName: in, Id: 0, Fish: 0
-            PlayerName: DOS, Id: 0, Fish: 0
-            PlayerName: mode., Id: 0, Fish: 0
-            PlayerName: $, Id: 0, Fish: 0
-            PlayerName: , Id: 0, Fish: 0
-            PlayerName: ☺☻∟, Id: 0, Fish: 0
-            PlayerName: ☺, Id: 0, Fish: 0
-    --- FAIL ---
+            No file name provided
+            
+    --- PASS ---
   
     TEST 4:
         command used in the terminal: 
