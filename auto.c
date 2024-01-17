@@ -57,6 +57,7 @@ int placement(int cols, int rows, int penguins, struct player* my_player, int my
 
     int penguinsPlaced = count_my_penguins(cols, rows, board, my_number);
 
+    if(penguinsPlaced == 0) my_player->fish = 0;
     if (penguinsPlaced == -1) {   printf("Error - incorrect board values.\n");    return 3;}
     if (penguinsPlaced > penguins) {  printf("Error - too many penguins on board.\n");     return 3;}
 
@@ -95,6 +96,7 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
     int bestFish=0;
     int placementFound = 0;
 
+    printf("\n(placement) my number: %d", my_number);
     for(int row = 0; row < rows; row++){
         for(int col = 0; col < cols; col++){
 
@@ -266,8 +268,12 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
 
 int identify(char* my_ID, struct player players[P], int* number_of_players){
 
-    for(int i = 0; i < *number_of_players; i++){
-        if(strcmp(players[i].name, my_ID) == 0) return i;
+    for(int i = 0; i < *number_of_players; i++) {
+        if(strcmp(players[i].name, my_ID) == 0) {
+            printf("\n%s", players[i].name);
+            return i;
+        }
+        printf("\n(identify) i: %d", i);
     }
     (*number_of_players) += 1;
     strcpy(players[*number_of_players].name, my_ID);
