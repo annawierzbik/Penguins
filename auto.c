@@ -130,7 +130,7 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 }
 
 ///_______________________________________________CHECK CHEATING FUNCTIONS_________________________________________________
-int count_rival_penguins(int cols, int rows, int board[N][N], int enemy_number){
+int count_enemy_penguins(int cols, int rows, int board[N][N], int enemy_number){
 
     int count=0;
 
