@@ -273,7 +273,6 @@ int identify(char* my_ID, struct player players[P], int* number_of_players){
             printf("\n%s", players[i].name);
             return i;
         }
-        printf("\n(identify) i: %d", i);
     }
     (*number_of_players) += 1;
     strcpy(players[*number_of_players].name, my_ID);

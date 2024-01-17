@@ -53,9 +53,9 @@ void test_identify() {
     char my_ID[10] = "Hania";
     int number_of_players = 3;
     struct player players[number_of_players]; 
-    players[0].fish = 0; strcpy(players[0].name, "Anna");
-    players[1].fish = 1; strcpy(players[1].name, "Javier");
-    players[2].fish = 1; strcpy(players[2].name, "Hania");
+    players[1].fish = 0; strcpy(players[1].name, "Anna");
+    players[2].fish = 1; strcpy(players[2].name, "Javier");
+    players[3].fish = 1; strcpy(players[3].name, "Hania");
     //here we are checking if the fucntion finds the player it is supposed to
     TEST_ASSERT_EQUAL(3, identify(my_ID, players, &number_of_players));
 }
