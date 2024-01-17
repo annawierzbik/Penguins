@@ -134,8 +134,6 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 
 
 int movement(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player){
-/* ZALACZ ZMIENNE */
-   //pick a penguin that can make a move
    int p=0;
    for(int row=0; row<rows; row++){
         for(int col=0; col<cols; col++){
@@ -148,17 +146,19 @@ int movement(int cols, int rows, int penguins, int board[N][N], int my_number, s
    }
     int whichPenguin=0;
     int mostFish=0;
+    int can_move=0;
     for(int i = 0; i < p; i++ ){
         int x = my_player->penguin[i].x;
         int y = my_player->penguin[i].y;
-        //printf("nr and cord of peng: %d %d %d\n", i, x, y);
         if(count_fish_around(y, x, cols, rows, board)>0){
             whichPenguin = i;
+            can_move++;
         }
     }
-
-   // printf("nr pingwina: %d\n", whichPenguin);
-   // printf("cord of peng: %d %d\n", my_player->penguin[whichPenguin].x, my_player->penguin[whichPenguin].y);
+    if(can_move==0){
+        printf("None of the penguins can move\n");
+        return 1;
+    }
     int x = my_player->penguin[whichPenguin].x;
     int y = my_player->penguin[whichPenguin].y;
     int newX=x+1;
@@ -208,9 +208,8 @@ int movement(int cols, int rows, int penguins, int board[N][N], int my_number, s
             error++;
         }
     }
-    //errorem sprawdzam czy udalo sie funkcji wejsc do jakiegos ifa, jesli nie to error jest 0 i wyskoczy blad funkcja zwroci 3
     if(error==0){
-        printf("something went wrong\n");
+        printf("error\n");
         return 3;
     }
     else{

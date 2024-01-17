@@ -52,10 +52,10 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 /**_________________________________________________MOVEMENT FUNCTIONS_________________________________________________**/
 
 
-//a move in the movement phase - one penguin is moved
+//a move in the movement phase - finding player's penguins that can move, choosing whing floe the penguins should be moved to
 /// @param cols number of columns of the board, @param rows number of rows of the board, @param penguins number of penguins per player,
 /// @param my_number player's number, @param my_player the player placing the fish (struct), @param board 2-dim array containing all floes,
-/// @return ?
+/// @return 0 (success) / 1 (penguins can't move) / 3 (error)
 int movement(int cols, int rows,int penguins, int board[N][N], int my_number, struct player* my_player);
 
 
