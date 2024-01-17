@@ -268,7 +268,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
 
 int identify(char* my_ID, struct player players[P], int* number_of_players){
 
-    for(int i = 0; i < *number_of_players; i++) {
+    for(int i = 0; i <= *number_of_players; i++) {
         if(strcmp(players[i].name, my_ID) == 0) {
             printf("\n%s", players[i].name);
             return i;
