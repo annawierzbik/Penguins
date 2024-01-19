@@ -27,10 +27,10 @@ int is_txt(char* str);
 
 //a move in the placement phase - one penguin is placed (and added 1 fish to player's fish)
 /// @param cols number of columns of the board, @param rows number of rows of the board, @param penguins number of penguins per player,
-/// @param my_player the player placing the fish (struct), @param my_number player's number, @param enemy_player number of the enemy
+/// @param my_player the player placing the fish (struct), @param my_number player's number,
 /// @param board 2-dim array containing all floes,
 /// @return 0 (success) / 1 (all penguins placed) / 3 (error)
-int placement(int cols, int rows, int penguins, struct player* my_player, int my_number,int enemy_player, int board[N][N]);
+int placement(int cols, int rows, int penguins, struct player* my_player, int my_number, int board[N][N]);
 
 /// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes, @param my_number player's number,
 /// @return x the number of penguins placed by the current player / -1 (error)
@@ -48,11 +48,6 @@ int count_fish_around(int x, int y, int cols, int rows, int board[N][N]);
 /// @return 0 (success) / 3 (error)
 int place_penguin(int cols, int rows, int board[N][N], int my_number, int penguinsPlaced, struct player* my_player);
 
-///_______________________________________________CHECK CHEATING FUNCTIONS_________________________________________________
-/// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes, @param my_number player's number,
-/// @return x the number of penguins placed by the current player / -1 (error)
-//same function as count_my_penguins but counts the penguins of the enemy, changed name to avoid missunderstandings
-int count_rival_penguins(int cols, int rows, int board[N][N], int enemy_number);
 
 /**_________________________________________________MOVEMENT FUNCTIONS_________________________________________________**/
 
