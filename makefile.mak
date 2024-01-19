@@ -1,10 +1,11 @@
 #
-# Make file for 
+# Makefile for our program :)
 #
-run-auto: deploy-auto
+#if you just type make this is the default command:
+run-auto: build-auto
 	penguins.exe phase=placement penguins=2 board-example-initial.txt board-example-result.txt
 
-run-inter: deploy-inter
+run-inter: build-inter
 	penguins.exe
 
 debug-auto: build-auto
@@ -14,18 +15,13 @@ debug-inter: build-inter
 	gdb penguins.exe
 
 build-auto: clean
-	gcc -g -DAUTO -DDEBUG -Wall main_autonomous.c auto.c board.c files.c -o penguins
+	gcc -g -Wall main_autonomous.c auto.c board.c files.c -o penguins
 
 build-inter: clean
 	gcc -g -Wall main_interactive.c setup.c board.c game.c penguin.c move.c -o penguins
 
-deploy-auto:
-	gcc -Wall main_autonomous.c board.c auto.c files.c -o penguins
-
-deploy-inter:
-	gcc -Wall main_interactive.c setup.c board.c auto.c game.c penguin.c move.c -o penguins
-
 clean:
+# deleting unnecesary files
 	del /Q penguins.exe
 	del /Q board-example-result.txt
 	del /Q build\Testmain.out
