@@ -2,6 +2,7 @@
 #include "unity.h"
 #include "board.h"
 #include "auto.h"
+#include "files.h"
 // IN THIS FILE I HAVE DEFINED THE TESTS WE ARE CONDUCTING
 
 void setUp() {/*meant to set up the enviroment for all unity tests, but I am not using it here*/}
