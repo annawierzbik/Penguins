@@ -52,7 +52,7 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 /// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes, @param my_number player's number,
 /// @return x the number of penguins placed by the current player / -1 (error)
 //same function as count_my_penguins but counts the penguins of the enemy, changed name to avoid missunderstandings
-int count_enemy_penguins(int cols, int rows, int board[N][N], int enemy_number);
+int count_rival_penguins(int cols, int rows, int board[N][N], int enemy_number);
 
 /**_________________________________________________MOVEMENT FUNCTIONS_________________________________________________**/
 
