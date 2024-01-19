@@ -1,6 +1,6 @@
 
 ----> HERE IS OUR DOCUMENTATION OF A MANUAL TESTS WE CONDUCTED FOR VARIOUS PARTS OF OUR CODE INCLUDING:
-    - Displaying the name of the player;
+    - displaying the name of the player;
     - interpreting comand line parameters and reacting accordingly to incorrect input;
     - placement of the penguins and functions necesary for it to work correctly (count_my_penguins() and count_my_fish());
     - movement of the penguins;
