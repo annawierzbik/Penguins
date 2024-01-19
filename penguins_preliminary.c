@@ -1,3 +1,4 @@
+/*
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -147,7 +148,7 @@ int are_coordinates_good(struct coordinates input, int n, int m) {
    * check if valid
    * coordinates on board
    * value is 1
-   * if not go back to: insert coordinates of a penguin*/
+   * if not go back to: insert coordinates of a penguin
 }
 
 void place_penguin(struct coordinates *penguin) {
@@ -208,9 +209,9 @@ int main(){
 	
 	//MOVEMENT PHASE
 	
-	while(/*any of the players can move*/){
+	while(any of the players can move){
 		
-		if(/*player can move*/) move_penguin();
+		if(player can move) move_penguin();
 		//change player
 	}
 	
@@ -226,3 +227,5 @@ int main(){
 	
 	return 0;
 }
+
+*/

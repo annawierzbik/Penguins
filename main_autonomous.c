@@ -3,6 +3,7 @@
 #include "structures.h"
 #include "board.h" //not necessary, used only to display board for testing
 #include "auto.h"
+#include "files.h"
 
 int main(int argc, char *argv[]){
 
