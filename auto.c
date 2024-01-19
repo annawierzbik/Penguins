@@ -53,11 +53,10 @@ int is_txt(char* str){
 ///__________________________________________________PLACEMENT FUNCTIONS________________________________________________
 
 
-int placement(int cols, int rows, int penguins, struct player* my_player, int my_number,int enemy_number, int board[N][N]){
+int placement(int cols, int rows, int penguins, struct player* my_player, int my_number, int board[N][N]){
 
     int penguinsPlaced = count_my_penguins(cols, rows, board, my_number);
-    int PenguinsEnemyPlaces= count_enemy_penguins(cols, rows, board, enemy_number);
-    if (penguinsPlaced!=PenguinsEnemyPlaces){printf("Error - my penguins numbers is different than the enemy penguins.\n"); return 3;}
+
     if(penguinsPlaced == 0) my_player->fish = 0;
     if (penguinsPlaced == -1) {   printf("Error - incorrect board values.\n");    return 3;}
     if (penguinsPlaced > penguins) {  printf("Error - too many penguins on board.\n");     return 3;}
@@ -129,19 +128,6 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
     }
 }
 
-///_______________________________________________CHECK CHEATING FUNCTIONS_________________________________________________
-int count_rival_penguins(int cols, int rows, int board[N][N], int enemy_number){
-
-    int count=0;
-
-    for (int row=0; row<rows; row++) {
-        for (int col=0; col<cols; col++) {
-            if (board[row][col]>30) { printf("Error - floe value too big (floe[%d][%d])(count_my_penguins())\n", row, col);  return -1;}
-            else if (board[row][col]%10 == enemy_number) count++;
-        }
-    }
-    return count;
-}
 
 
 ///_________________________________________________MOVEMENT FUNCTIONS_________________________________________________
