@@ -39,3 +39,8 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 /// @return 0 (success) / 1 (penguins can't move) /2 (no penguins were found)/ 3 (error)
 int movement(int cols, int rows,int penguins, int board[N][N], int my_number, struct player* my_player);
 
+// [opis]
+/// @param ??
+/// @returns ???
+void find_my_penguins(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player);
+//schemat - <co zwraca> nazwa_funkcji( < zmienna 1>, <zmienna 2>, <zmienna 3>...); -średnik na końcu
