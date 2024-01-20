@@ -57,26 +57,8 @@ int can_move(int cols, int rows, int penguins, int board[N][N], int my_number, s
 /// @return index of the penguin that will be moved
 int choose_penguin(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player);
 
-//counts fish on the right side of the penguin
-///@param x first coordinate of the penguin, @param y second coordinate of the penguin
+//counts fish on a certain floe
+///@param newX first coordinate of the floe, @param y second coordinate of the floe
 /// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes,
 /// @return number of the fish on the right
-int fish_right(int x, int y, int board[N][N], int cols, int rows);
-
-//counts fish on the left side of the penguin
-///@param x first coordinate of the penguin, @param y second coordinate of the penguin
-/// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes,
-/// @return number of the fish on the left
-int fish_left(int x, int y, int board[N][N], int cols, int rows);
-
-//counts fish above the penguin
-///@param x first coordinate of the penguin, @param y second coordinate of the penguin
-/// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes,
-/// @return number of the fish above the penguin
-int fish_up(int x, int y, int board[N][N], int cols, int rows);
-
-//counts fish above the penguin
-///@param x first coordinate of the penguin, @param y second coordinate of the penguin
-/// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes,
-/// @return number of the fish above the penguin
-int fish_down(int x, int y, int board[N][N], int cols, int rows);
+int fish(int newX, int newY, int board[N][N], int cols, int rows);

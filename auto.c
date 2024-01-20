@@ -127,39 +127,8 @@ int choose_penguin(int cols, int rows, int penguins, int board[N][N], int my_num
     return which;
 }
 
-int fish_right(int x, int y, int board[N][N], int cols, int rows){
-    int newX=x+1;
-    int newY=y;
-    int value=0;
-    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
-        value=board[newX][newY]/10;
-    }
-    return value;
-}
-
-int fish_left(int x, int y, int board[N][N], int cols, int rows){
-    int newX=x-1;
-    int newY=y;
-    int value=0;
-    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
-        value=board[newX][newY]/10;
-    }
-    return value;
-}
-
-int fish_up(int x, int y, int board[N][N], int cols, int rows){
-    int newX=x;
-    int newY=y+1;
-    int value=0;
-    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
-        value=board[newX][newY]/10;
-    }
-    return value;
-}
-
-int fish_down(int x, int y, int board[N][N], int cols, int rows){
-    int newX=x;
-    int newY=y-1;
+int fish(int newX, int newY, int board[N][N], int cols, int rows){
+    //right - x+1 left - x-1 up - y-1 down - y+1
     int value=0;
     if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
         value=board[newX][newY]/10;
@@ -175,7 +144,7 @@ int movement(int cols, int rows, int penguins, int board[N][N], int my_number, s
     }
     find_my_penguins(cols, rows, penguins, board, my_number, my_player);
     if(!can_move(cols, rows, penguins, board, my_number, my_player)){
-        //printf("None of the penguins can move\n");
+        printf("None of the penguins can move\n");
         return 1;
     }
     int whichPenguin=choose_penguin(cols, rows, penguins, board, my_number, my_player);
@@ -185,28 +154,28 @@ int movement(int cols, int rows, int penguins, int board[N][N], int my_number, s
     int movex=0;
     int movey=0;
     int mostFish=0;
-    int temp=fish_right(x,y,board,cols,rows);
+    int temp=fish(x+1,y,board,cols,rows);
     if(temp>mostFish){
         mostFish=temp;
         movex=x+1;
         movey=y;
         error++;
     }
-    temp=fish_left(x,y,board,cols,rows);
+    temp=fish(x-1,y,board,cols,rows);
     if(temp>mostFish){
         mostFish=temp;
         movex=x-1;
         movey=y;
         error++;
     }
-    temp=fish_up(x,y,board,cols,rows);
+    temp=fish(x,y+1,board,cols,rows);
     if(temp>mostFish){
         mostFish=temp;
         movex=x;
         movey=y+1;
         error++;
     }
-    temp=fish_down(x,y,board,cols,rows);
+    temp=fish(x,y-1,board,cols,rows);
     if(temp>mostFish){
         mostFish=temp;
         movex=x;
