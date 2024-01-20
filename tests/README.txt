@@ -298,3 +298,15 @@ FUNCTION movement() and write file()
             Anny 2 15
         "None of the penguins can move"
         --- PASS ---
+    TEST 4:
+    input file:
+        5 6
+        00 10 20 30 10 01 
+        30 20 10 00 20 00 
+        30 00 20 10 10 00 
+        20 10 20 30 00 00 
+        00 00 20 10 00 00 
+        Hania 1 13
+    expected action:    penguin movement
+    output : error - chosen penguin cannot move
+    --- FAIL ---
