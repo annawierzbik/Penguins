@@ -206,7 +206,7 @@ int movement(int cols, int rows, int penguins, int board[N][N], int my_number, s
         movey=y+1;
         error++;
     }
-    temp=fish_up(x,y,board,cols,rows);
+    temp=fish_down(x,y,board,cols,rows);
     if(temp>mostFish){
         mostFish=temp;
         movex=x;
