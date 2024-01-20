@@ -26,7 +26,10 @@ int count_my_penguins(int cols, int rows, int board[N][N], int my_number){
 
     for (int row=0; row<rows; row++) {
         for (int col=0; col<cols; col++) {
-            if (board[row][col]>30) { printf("Error - floe value too big (floe[%d][%d])(count_my_penguins())\n", row, col);  return -1;}
+            if (board[row][col]>30){
+                printf("Error - floe value too big (floe[%d][%d])(count_my_penguins())\n", row, col);
+                return -1;
+            }
             else if (board[row][col]%10 == my_number) count++;
         }
     }
@@ -48,7 +51,7 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
     int bestFish=0;
     int placementFound = 0;
 
-    printf("\n(placement) my number: %d", my_number);
+    //printf("\n(placement) my number: %d", my_number);
     for(int row = 0; row < rows; row++){
         for(int col = 0; col < cols; col++){
 
@@ -85,12 +88,13 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 ///_________________________________________________MOVEMENT FUNCTIONS_________________________________________________
 
 void find_my_penguins(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player){
-    int p=count_my_penguins(cols,rows,board,my_number);
+    int p=0;
     for(int row=0; row<rows; row++){
         for(int col=0; col<cols; col++){
             if(board[row][col]%10 == my_number){
                 my_player->penguin[p].x=row;
                 my_player->penguin[p].y=col;
+                p++;
             }
         }
    }
@@ -106,17 +110,13 @@ int can_move(int cols, int rows, int penguins, int board[N][N], int my_number, s
             check++;
         }
     }
-    if(check==0){
-        return 0;
-    }
-    else{
-        return 1;
-    }
+    if(check==0) return 0;
+    else return 1;
 }
 
 int choose_penguin(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player){
     int p=count_my_penguins(cols,rows,board,my_number);
-    int which=0;
+    int which=-1;
     for(int i = 0; i < p; i++ ){
         int x = my_player->penguin[i].x;
         int y = my_player->penguin[i].y;
@@ -126,6 +126,7 @@ int choose_penguin(int cols, int rows, int penguins, int board[N][N], int my_num
     }
     return which;
 }
+
 int fish_right(int x, int y, int board[N][N], int cols, int rows){
     int newX=x+1;
     int newY=y;
@@ -173,8 +174,8 @@ int movement(int cols, int rows, int penguins, int board[N][N], int my_number, s
         return 2;
     }
     find_my_penguins(cols, rows, penguins, board, my_number, my_player);
-    if(can_move(cols, rows, penguins, board, my_number, my_player)){
-        printf("None of the penguins can move\n");
+    if(!can_move(cols, rows, penguins, board, my_number, my_player)){
+        //printf("None of the penguins can move\n");
         return 1;
     }
     int whichPenguin=choose_penguin(cols, rows, penguins, board, my_number, my_player);
@@ -213,15 +214,15 @@ int movement(int cols, int rows, int penguins, int board[N][N], int my_number, s
         error++;
     }
     if(error==0){
-        printf("error\n");
+        printf("error - chosen penguin cannot move\n");
         return 3;
     }
     else{
         my_player->penguin[whichPenguin].x = movex;
         my_player->penguin[whichPenguin].y = movey;
-        my_player->fish += board[my_player->penguin[whichPenguin].x][ my_player->penguin[whichPenguin].y]/10;
+        my_player->fish += board[movex][movey]/10;
         board[x][y] = 00;
-        board[my_player->penguin[whichPenguin].x][ my_player->penguin[whichPenguin].y] = my_number;
+        board[movex][movey] = my_number;
         return 0;
     }
 }
