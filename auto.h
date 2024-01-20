@@ -39,8 +39,44 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 /// @return 0 (success) / 1 (penguins can't move) /2 (no penguins were found)/ 3 (error)
 int movement(int cols, int rows,int penguins, int board[N][N], int my_number, struct player* my_player);
 
-// [opis]
-/// @param ??
-/// @returns ???
+// finds coordinates of player's penguins
+/// @param cols number of columns of the board, @param rows number of rows of the board, @param penguins number of penguins per player,
+/// @param my_player the player placing the fish (struct), @param my_number player's number, @param board 2-dim array containing all floes,
+/// @returns none
 void find_my_penguins(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player);
-//schemat - <co zwraca> nazwa_funkcji( < zmienna 1>, <zmienna 2>, <zmienna 3>...); -średnik na końcu
+
+//check if any of player's penguins can move
+/// @param cols number of columns of the board, @param rows number of rows of the board, @param penguins number of penguins per player,
+/// @param my_number player's number, @param my_player the player placing the fish (struct), @param board 2-dim array containing all floes,
+/// @return 0 (no penguin can move) / 1 (at least one penguin can move)
+int can_move(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player);
+
+//finds index of the penguing that can move, that penguin will be moved
+/// @param cols number of columns of the board, @param rows number of rows of the board, @param penguins number of penguins per player,
+/// @param my_number player's number, @param my_player the player placing the fish (struct), @param board 2-dim array containing all floes,
+/// @return index of the penguin that will be moved
+int choose_penguin(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player);
+
+//counts fish on the right side of the penguin
+///@param x first coordinate of the penguin, @param y second coordinate of the penguin
+/// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes,
+/// @return number of the fish on the right
+int fish_right(int x, int y, int board[N][N], int cols, int rows);
+
+//counts fish on the left side of the penguin
+///@param x first coordinate of the penguin, @param y second coordinate of the penguin
+/// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes,
+/// @return number of the fish on the left
+int fish_left(int x, int y, int board[N][N], int cols, int rows);
+
+//counts fish above the penguin
+///@param x first coordinate of the penguin, @param y second coordinate of the penguin
+/// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes,
+/// @return number of the fish above the penguin
+int fish_up(int x, int y, int board[N][N], int cols, int rows);
+
+//counts fish above the penguin
+///@param x first coordinate of the penguin, @param y second coordinate of the penguin
+/// @param cols number of columns of the board, @param rows number of rows of the board, @param board 2-dim array containing all floes,
+/// @return number of the fish above the penguin
+int fish_down(int x, int y, int board[N][N], int cols, int rows);
