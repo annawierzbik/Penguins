@@ -6,7 +6,7 @@
     - movement of the penguins;
     - writing the output file (as a part of either placement or movement test).
 
-There also is a separate folder named "Full gameplay test" that shows the each one of the files created during the gameplay for two players.
+There also is a separate folder named "Full gameplay test" that shows the each one of the files created during a gameplay with two players.
 
 NAME DISPLAY TEST:
     comand line input:
@@ -229,6 +229,7 @@ FUNCTION placement() and write_file()
         Hania 1 1
         Ania 2 2
         igf 3 1
+    --- PASS ---
 
 FUNCTION movement() and write file() 
     TEST 1:
@@ -299,14 +300,17 @@ FUNCTION movement() and write file()
         "None of the penguins can move"
         --- PASS ---
     TEST 4:
-    input file:
-        5 6
-        00 10 20 30 10 01 
-        30 20 10 00 20 00 
-        30 00 20 10 10 00 
-        20 10 20 30 00 00 
-        00 00 20 10 00 00 
-        Hania 1 13
-    expected action:    penguin movement
-    output : error - chosen penguin cannot move
-    --- FAIL ---
+        input file:
+            5 6
+            00 10 20 30 10 01 
+            30 20 10 00 20 00 
+            30 00 20 10 10 00 
+            20 10 20 30 00 00 
+            00 00 20 10 00 00 
+            Hania 1 13
+        expected action: penguin movement
+        output : "error - chosen penguin cannot move"
+        --- FAIL ---
+    after fixing the issue (game did not consider turning right during movement):
+        output file:
+        --- PASS ---
