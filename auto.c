@@ -84,81 +84,133 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
 
 ///_________________________________________________MOVEMENT FUNCTIONS_________________________________________________
 
-
-int movement(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player){
-   int p=0;
-   for(int row=0; row<rows; row++){
+void find_my_penguins(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player){
+    int p=count_my_penguins(cols,rows,board,my_number);
+    for(int row=0; row<rows; row++){
         for(int col=0; col<cols; col++){
             if(board[row][col]%10 == my_number){
                 my_player->penguin[p].x=row;
                 my_player->penguin[p].y=col;
-                p++;
             }
         }
    }
-    int whichPenguin=0;
-    int mostFish=0;
-    int can_move=0;
+}
+
+int can_move(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player){
+    int p=count_my_penguins(cols,rows,board,my_number);
+    int check=0;
     for(int i = 0; i < p; i++ ){
         int x = my_player->penguin[i].x;
         int y = my_player->penguin[i].y;
         if(count_fish_around(y, x, cols, rows, board)>0){
-            whichPenguin = i;
-            can_move++;
+            check++;
         }
     }
-    if(can_move==0){
+    if(check==0){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
+int choose_penguin(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player){
+    int p=count_my_penguins(cols,rows,board,my_number);
+    int which=0;
+    for(int i = 0; i < p; i++ ){
+        int x = my_player->penguin[i].x;
+        int y = my_player->penguin[i].y;
+        if(count_fish_around(y, x, cols, rows, board)>0){
+            which=i;
+        }
+    }
+    return which;
+}
+int fish_right(int x, int y, int board[N][N], int cols, int rows){
+    int newX=x+1;
+    int newY=y;
+    int value=0;
+    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
+        value=board[newX][newY]/10;
+    }
+    return value;
+}
+
+int fish_left(int x, int y, int board[N][N], int cols, int rows){
+    int newX=x-1;
+    int newY=y;
+    int value=0;
+    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
+        value=board[newX][newY]/10;
+    }
+    return value;
+}
+
+int fish_up(int x, int y, int board[N][N], int cols, int rows){
+    int newX=x;
+    int newY=y+1;
+    int value=0;
+    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
+        value=board[newX][newY]/10;
+    }
+    return value;
+}
+
+int fish_down(int x, int y, int board[N][N], int cols, int rows){
+    int newX=x;
+    int newY=y-1;
+    int value=0;
+    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
+        value=board[newX][newY]/10;
+    }
+    return value;
+}
+
+int movement(int cols, int rows, int penguins, int board[N][N], int my_number, struct player* my_player){
+    int p=count_my_penguins(cols,rows,board,my_number);
+    if(p==0){
+        printf("No penguins found\n");
+        return 2;
+    }
+    find_my_penguins(cols, rows, penguins, board, my_number, my_player);
+    if(can_move(cols, rows, penguins, board, my_number, my_player)){
         printf("None of the penguins can move\n");
         return 1;
     }
+    int whichPenguin=choose_penguin(cols, rows, penguins, board, my_number, my_player);
     int x = my_player->penguin[whichPenguin].x;
     int y = my_player->penguin[whichPenguin].y;
-    int newX=x+1;
-    int newY=y;
     int error=0;
     int movex=0;
     int movey=0;
-    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
-        int temp=board[newX][newY]/10;
-        if(temp>mostFish){
-            mostFish=temp;
-            movex=newX;
-            movey=newY;
-            error++;
-        }
+    int mostFish=0;
+    int temp=fish_right(x,y,board,cols,rows);
+    if(temp>mostFish){
+        mostFish=temp;
+        movex=x+1;
+        movey=y;
+        error++;
     }
-    newX=x-1;
-    newY=y;
-    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
-        int temp=board[newX][newY]/10;
-         if(temp>mostFish){
-            mostFish=temp;
-            movex=newX;
-            movey=newY;
-            error++;
-        }
+    temp=fish_left(x,y,board,cols,rows);
+    if(temp>mostFish){
+        mostFish=temp;
+        movex=x-1;
+        movey=y;
+        error++;
     }
-    newX=x;
-    newY=y+1;
-    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
-        int temp=board[newX][newY]/10;
-         if(temp>mostFish){
-            mostFish=temp;
-            movex=newX;
-            movey=newY;
-            error++;
-        }
+    temp=fish_up(x,y,board,cols,rows);
+    if(temp>mostFish){
+        mostFish=temp;
+        movex=x;
+        movey=y+1;
+        error++;
     }
-    newX=x;
-    newY=y-1;
-    if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
-        int temp=board[newX][newY]/10;
-         if(temp>mostFish){
-            mostFish=temp;
-            movex=newX;
-            movey=newY;
-            error++;
-        }
+    temp=fish_up(x,y,board,cols,rows);
+    if(temp>mostFish){
+        mostFish=temp;
+        movex=x;
+        movey=y-1;
+        error++;
     }
     if(error==0){
         printf("error\n");
