@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]){
 
-    char my_ID[MAX_LINE_LENGTH] = "Hania";
+    char my_ID[MAX_LINE_LENGTH] = "playerA1";
     int penguins = 0, phase = -1, name = 0, input_ID = -1, output_ID = -1;
     int rows = 0, columns = 0, number_of_players;
 
