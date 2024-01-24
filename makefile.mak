@@ -25,16 +25,16 @@ clean:
 	del /Q penguins.exe
 	del /Q board-example-result.txt
 	del /Q build\Testmain.out
-	del /Q build\objs\*
+	del /Q build\*
 
 test:
 #	-I. makes sure all header files are included in compilation in the current directory (the same for -IUnity-master/src/)
 #	here we compile all the files necesary to test our functions and put them into the catalog 
-	gcc -c -I. -IUnity-master/src/ main_autonomous.c -o build/objs/main_autonomous.o
-	gcc -c -I. -IUnity-master/src/ auto.c -o build/objs/auto.o
-	gcc -c -I. -IUnity-master/src/ files.c -o build/objs/files.o
-	gcc -c -I. -IUnity-master/src/ board.c -o build/objs/board.o
-	gcc -c -I. -IUnity-master/src/ tests/Testmain.c -o build/objs/Testmain.o
-	gcc -c -I. -IUnity-master/src/ Unity-master/src/unity.c -o build/objs/unity.o
-	gcc -o build/Testmain.out build\objs\Testmain.o build\objs\board.o build\objs\files.o build\objs\auto.o build/objs/unity.o
+	gcc -c -I. -IUnity-master/src/ main_autonomous.c -o build/main_autonomous.o
+	gcc -c -I. -IUnity-master/src/ auto.c -o build/auto.o
+	gcc -c -I. -IUnity-master/src/ files.c -o build/files.o
+	gcc -c -I. -IUnity-master/src/ board.c -o build/board.o
+	gcc -c -I. -IUnity-master/src/ tests/Testmain.c -o build/Testmain.o
+	gcc -c -I. -IUnity-master/src/ Unity-master/src/unity.c -o build/unity.o
+	gcc -o build/Testmain.out build\Testmain.o build\board.o build\files.o build\auto.o build/unity.o
 	./build/Testmain.out

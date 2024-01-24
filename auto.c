@@ -9,7 +9,7 @@ int placement(int cols, int rows, int penguins, struct player* my_player, int my
 
     int penguinsPlaced = count_my_penguins(cols, rows, board, my_number);
 
-    if(penguinsPlaced == 0) my_player->fish = 0;
+    my_player->fish = penguinsPlaced;
     if (penguinsPlaced == -1) {   printf("Error - incorrect board values.\n");    return 3;}
     if (penguinsPlaced > penguins) {  printf("Error - too many penguins on board.\n");     return 3;}
 
