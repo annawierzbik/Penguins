@@ -50,16 +50,10 @@ int place_penguin(int cols, int rows, int board[N][N], int my_number, int pengui
     struct coordinates bestCoordinates;
     int bestFish=0;
     int placementFound = 0;
-
-    //printf("\n(placement) my number: %d", my_number);
     for(int row = 0; row < rows; row++){
         for(int col = 0; col < cols; col++){
-
             if(board[row][col] == 10){
-
                 int fishAround = count_fish_around(col, row, cols, rows, board);
-                //printf("Coordinates [%d][%d] with %d fish around\n", col, row, fishAround);
-
                 if(fishAround >= bestFish){
                     bestCoordinates.x = row;
                     bestCoordinates.y = col;
@@ -128,7 +122,6 @@ int choose_penguin(int cols, int rows, int penguins, int board[N][N], int my_num
 }
 
 int fish(int newX, int newY, int board[N][N], int cols, int rows){
-    //right - x+1 left - x-1 up - y-1 down - y+1
     int value=0;
     if(newX>=0 && newX<rows && newY>=0 && newY<cols && (board[newX][newY]/10)!=0){
         value=board[newX][newY]/10;

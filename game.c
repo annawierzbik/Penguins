@@ -61,10 +61,6 @@ void play_game(int n, int m, int pla, int pen, struct player players[], int boar
     printf("\n\n\nNo player can make a move anymore. This is the end of the game.\n");
 }
 
-  //for pla players finds the highest number of fish
-  //players[i].fish - to access the fish of i-th player
-  //if one player has more than the others declares the winner or else declares a tie
-
 void evaluate_game(int pla, struct player players[]){
  
   struct player player_ranking[pla];
@@ -72,13 +68,9 @@ void evaluate_game(int pla, struct player players[]){
   char players_letter[pla];
     
   for (int i =0; i<pla-1; i++) {
-    //initialize the ranking of players
     player_ranking[i]= players[i];
-    //this array stores the letters associated with players
     players_letter[i] = 'A'+i;
     }
-    
-    //bubble sort the players by score
 
   do {
     changes = 0;
@@ -95,7 +87,6 @@ void evaluate_game(int pla, struct player players[]){
     }      
   } while (changes!=0);
   
-  //print the ranking of players and their scores
   printf("\nTHE RANKING OF PLAYERS:\n");
   for(int k = 0; k <pla; k++) {
       printf("\tPlayer %c --- %d\n",players_letter[k], player_ranking[k].fish);   

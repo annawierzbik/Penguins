@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "structures.h"
-#include "board.h" //not necessary, used only to display board for testing
+#include "board.h" 
 #include "auto.h"
 #include "files.h"
 

@@ -70,7 +70,7 @@ int read_file(char* argv[], int input_ID, int board[N][N], struct player players
         }
     }
 
-    fgets(inputRow, sizeof(inputRow), input); // this is so that it skips to the next line after reading the board
+    fgets(inputRow, sizeof(inputRow), input); 
 
     char playerName[MAX_LINE_LENGTH];
     int playerNum, playerFish;

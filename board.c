@@ -5,7 +5,6 @@
 
 
 void initialize_board(int n, int m, int board[][N]){
-
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
           board[i][j] = 0;
@@ -14,13 +13,9 @@ void initialize_board(int n, int m, int board[][N]){
 }
 
 void create_board(int n, int m, int pla, int pen, int board[][N]){
-
 	srand(time(0));
-
     int num, ones = pla * pen;
-
     for(int k = 0; k < ones; k++){
-
         int i = rand() % n;
         int j = rand() % m;
 #ifdef AUTO
@@ -48,7 +43,6 @@ void create_board(int n, int m, int pla, int pen, int board[][N]){
 }
 
 void display_board(int n, int m, int board[][N]){
-
     printf("\n\n    ");
 #ifdef AUTO
     for(int i = 0; i < n; i++)  printf(" %c ", i+'a');
@@ -82,9 +76,7 @@ void display_board(int n, int m, int board[][N]){
             else printf("%d ", board[i][j]);
 #endif
         }
-
         printf("\n");
     }
-
     printf("\n\n");
 }
